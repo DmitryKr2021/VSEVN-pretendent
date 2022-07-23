@@ -941,27 +941,27 @@ html {
 }
 
 .wrap-shareitem:nth-child(1) a {
-  background: url(../img/icons/facebook-share.png) 40% 40% no-repeat;
+  background: url(img/facebook-share.png) 40% 40% no-repeat;
 }
 
 .wrap-shareitem:nth-child(2) a {
-  background: url(../img/icons/class-share.png) 40% 40% no-repeat;
+  background: url(img/class-share.png) 40% 40% no-repeat;
 }
 
 .wrap-shareitem:nth-child(3) a {
-  background: url(../img/icons/vk-share.png) 40% 42% no-repeat;
+  background: url(img/vk-share.png) 40% 42% no-repeat;
 }
 
 .wrap-shareitem:nth-child(4) a {
-  background: url(../img/icons/twitter-share.png) 40% 40% no-repeat;
+  background: url(img/twitter-share.png) 40% 40% no-repeat;
 }
 
 .wrap-shareitem:nth-child(5) a {
-  background: url(../img/icons/mail-share.png) 36% 36% no-repeat;
+  background: url(img/mail-share.png) 36% 36% no-repeat;
 }
 
 .wrap-shareitem:nth-child(6) {
-  background: url(../img/icons/pencil-share.png) center center no-repeat;
+  background: url(img/pencil-share.png) center center no-repeat;
 }
 
 .wrap-shareitem:hover {
