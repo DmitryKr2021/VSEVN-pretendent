@@ -14,6 +14,7 @@ body {
   --card-hoverdark: #377800;
   --vacansion-dark: #142542;
   --vacansion-light: #435269;
+  --edit-resume: #fbe97d;
 }
 
 
@@ -126,6 +127,10 @@ html {
 }
 
 .hide-block {
+  display: none;
+}
+
+.initial-hide {
   display: none;
 }
 
@@ -352,16 +357,11 @@ html {
 /*******Конец стили для импортированной шапки*********/
 
 
-
 /************Карточка соискателя************/
 .main__wrapper {
   max-width: 1360px;
   margin-left: auto;
   margin-right: auto;
-}
-
-.pretendent-card {
-  margin-top: 30px;
 }
 
 .pretendent-card__wrap {
@@ -376,8 +376,6 @@ html {
 }
 
 .pretendent-card__header-wrap {
-  /*width: 70%;
-  margin-left: 15%;*/
   display: flex;
   justify-content: space-between;
   width: 86%;
@@ -386,6 +384,21 @@ html {
 
 .header-left {
   flex-basis: 75%;
+}
+
+.header-leftwrap {
+  padding-right: 200px;
+}
+
+.pretendent-card__name {
+  font-size: 34px;
+  font-weight: 500;
+  color: #5ab8f7;
+  margin-bottom: 5px;
+}
+
+.pretendent-card__name span {
+  color: var(--bg-red);
 }
 
 .pretendent-card__title {
@@ -400,20 +413,6 @@ html {
   font-size: 19px;
   letter-spacing: 0px;
   margin-bottom: 10px;
-}
-
-.window__date-number {
-  width: 30px;
-  height: 20px;
-  padding-left: 25px;
-  margin-left: 20px;
-  color: #5ab8f7;
-  background: url(img/icon-eye.png) 0 center no-repeat;
-  background-size: 30%;
-}
-
-.window__date-number1 {
-  color: #619f00;
 }
 
 .header-leftwrap .a-comment {
@@ -442,7 +441,7 @@ html {
 
 .pretendent-card__header .window__buttons-row button {
   padding: 12px;
-  padding-left: 28px;
+  padding-left: 20px;
   padding-right: 37px;
   font-size: 16px;
   border-radius: 3px;
@@ -452,15 +451,6 @@ html {
 }
 
 .pretendent-card__header .window__buttons-row button svg {
-  margin-right: 10px;
-}
-
-.pretendent-card__header .window__buttons-row button:nth-child(2) {
-  padding-right: 28px;
-  padding-left: 17px;
-}
-
-.pretendent-card__header .window__buttons-row button:nth-child(2) svg {
   margin-right: 20px;
 }
 
@@ -488,26 +478,11 @@ html {
 }
 
 .header-right .window__fork {
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 500;
   text-align: left;
-  padding-top: 8px;
-  padding-left: 115px;
+  margin-top: 75px;
 }
-
-.header-right__text {
-  margin-top: 3px;
-  font-size: 14px;
-  padding-left: 115px;
-}
-
-/*.hr1 {
-  width: 100vw;
-  height: 1px;
-  border-bottom: 1px solid #e2e6e9;
-  border-bottom: 1px solid red;
-  transform: translateX(calc(680px - 50vw));
-}*/
 
 .pretendent-card__resume {
   margin-top: 10px;
@@ -524,13 +499,27 @@ html {
 
 .resume-main__foto {
   flex-basis: 26%;
-  border: 1px solid var(--border-color);
   border-radius: 2px;
+}
+
+.foto-wrap {
+  border: 1px solid var(--border-color);
   padding: 2px;
 }
 
 .resume-main__foto img {
   width: 100%;
+}
+
+.resume-main__foto .edit {
+  margin-top: 10px;
+}
+
+button.edit {
+  color: var(--edit-resume);
+  border: none;
+  font-size: 18px;
+  border-bottom: 1px dotted var(--edit-resume);
 }
 
 .resume-main__info {
@@ -554,6 +543,13 @@ html {
   margin-bottom: 0;
 }
 
+.edit-info {
+  padding-left: 20px;
+  background: url(img/pencil.svg) no-repeat;
+  background-size: 15px;
+  background-position: 0 3px;
+}
+
 .info-wrap.contacts p span {
   color: #222;
 }
@@ -571,9 +567,8 @@ html {
 .contacts-wrap .window__btn {
   width: 98%;
   border-radius: 3px;
-  padding: 8px;
   padding: 14px;
-  font-size: 15px;
+  font-size: 18px;
   color: #777;
   transition: 0.3s;
 }
@@ -597,6 +592,63 @@ html {
   background-color: rgb(255, 221, 0);
 }
 
+.contacts-wrap button:nth-child(3) {
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+.btn-content p {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.contacts-wrap .window__btn.edit {
+  background-color: #fff;
+  border: 1px solid var(--bg-red);
+}
+
+.btn-socicon .whatsapp {
+  display: inline-block;
+  margin-left: 15px;
+  width: 50%;
+  height: 20px;
+  padding-bottom: 3px;
+  background: url(img/whatsapp.svg) 0 4px no-repeat;
+  background-size: 15%;
+}
+
+.btn-socicon .viber {
+  display: inline-block;
+  width: 35%;
+  height: 20px;
+  padding-bottom: 3px;
+  background: url(img/viber.svg) 0 3px no-repeat;
+  background-size: 23%;
+}
+
+.contacts-wrap__edit {
+  width: 88.5%;
+  transform: translateX(-17px);
+  padding: 8px 11px;
+  border: 1px solid var(--border-color);
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.contacts-wrap__edit input {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--bg-red);
+  border-radius: 3px;
+}
+
+.contacts-wrap__edit .edit-contact {
+  font-size: 12px;
+  color: var(--bg-red);
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
 .pretendent-card__container {
   width: 86%;
   margin-left: 7%;
@@ -607,6 +659,7 @@ html {
 }
 
 .resume__buttons-row {
+  position: relative;
   margin-top: 33px;
   display: flex;
   flex-wrap: wrap;
@@ -621,47 +674,144 @@ html {
   padding-left: 44px;
   border: 1px solid #777;
   border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.resume__buttons-row .window__btn:hover {
+  background-color: var(--bg-yellow);
+  border: 1px solid var(--bg-yellow);
 }
 
 .resume__buttons-row button:nth-child(1) {
   padding-right: 15px;
   padding-left: 46px;
   letter-spacing: -0.5px;
-  background: url(img/download.png) 12px center no-repeat;
+  background: url(img/download.svg) 12px center no-repeat;
   background-size: 13%;
 }
 
-.resume__buttons-row button:nth-child(2) {
+.resume__buttons-row button:nth-child(3) {
   padding-left: 47px;
   padding-right: 15px;
   letter-spacing: -0.5px;
-  background: url(img/printer.png) 12px center no-repeat;
+  background: url(img/printer.svg) 12px center no-repeat;
   background-size: 17%;
 }
 
-.resume__buttons-row button:nth-child(3) {
-  padding-left: 52px;
-  letter-spacing: -0.5px;
-  padding-right: 20px;
-  background: url(img/star.svg) -7px center no-repeat;
-  background-size: 32%;
-}
-
-.resume__buttons-row button:nth-child(4) {
-  padding-left: 48px;
+.resume__buttons-row .btn-favorite {
+  padding-left: 40px;
+  position: relative;
   letter-spacing: -0.5px;
   padding-right: 23px;
-  background: url(img/flag.png) 16px center no-repeat;
-  background-size: 7%;
+}
+
+.resume__buttons-row .btn-favorite svg {
+  position: absolute;
+  left: 10px;
+}
+
+.resume__buttons-row .btn-favorite.pressed {
+  color: var(--bg-red);
+  border: 1px solid var(--bg-red);
+  padding-right: 26px;
+}
+
+.resume__buttons-row .btn-favorite.pressed svg path {
+  fill: #ec0303;
+}
+
+.resume__buttons-row .btn-black {
+  position: relative;
+  letter-spacing: -0.5px;
+  padding-right: 23px;
+}
+
+.resume__buttons-row .btn-black svg {
+  position: absolute;
+  left: 10px;
+}
+
+.resume__buttons-row .btn-black.pressed svg path {
+  fill: #777;
+}
+
+.resume__buttons-choose {
+  position: absolute;
+  left: 0;
+  top: 45px;
+  padding-top: 15px;
+  width: 170px;
+  height: 90px;
+  display: none;
+}
+
+.resume__buttons-choose .choose-wrap {
+  height: 80px;
+  background-color: #fff;
+  box-shadow: 0 0 15px #555;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.resume__buttons-choose .choose-wrap:before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -14px;
+  border-width: 15px;
+  border-style: solid;
+  border-color: transparent transparent #fff transparent;
+}
+
+.resume__buttons-row button:nth-child(1):hover+.resume__buttons-choose {
+  display: block;
+}
+
+.resume__buttons-choose:hover {
+  display: block;
+}
+
+.resume__buttons-row button:nth-child(1):hover+.resume__buttons-choose .choose-wrap {
+  visibility: visible;
+}
+
+.resume__buttons-choose:hover .choose-wrap {
+  visibility: visible;
+}
+
+.choose-wrap .choose-pdf {
+  box-sizing: border-box;
+  width: 100%;
+  height: 50%;
+  padding-left: 60px;
+  padding-top: 12px;
+  background: url(img/pdf.png) 15px center no-repeat;
+  background-size: 15%;
+  transition: background-color 0.3s;
+}
+
+.choose-wrap .choose-pdf:hover {
+  background-color: var(--bg-yellow);
+}
+
+.choose-wrap .choose-word {
+  box-sizing: border-box;
+  width: 100%;
+  height: 50%;
+  padding-left: 60px;
+  padding-top: 12px;
+  background: url(img/word.png) 15px center no-repeat;
+  background-size: 13%;
+  transition: background-color 0.3s;
+}
+
+.choose-wrap .choose-word:hover {
+  background-color: var(--bg-yellow);
 }
 
 .pretendent-card__adress {
   border-bottom: 1px solid var(--border-color);
-}
-
-.adress__wrap {
-  display: flex;
-  justify-content: space-between;
 }
 
 .adress__wrap p {
@@ -671,8 +821,16 @@ html {
   margin-bottom: 10px;
 }
 
-.adress__wrap button {
-  margin-left: 15px;
+.adress__wrap p span {
+  color: #111;
+}
+
+.adress-map {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.adress-map button {
   font-size: 16px;
   padding: 11px 26px;
   padding-left: 28px;
@@ -681,6 +839,10 @@ html {
   color: #222;
   border: 1px solid #777;
   border-radius: 2px;
+}
+
+.pretendent-card__adress-data {
+  margin-bottom: 15px;
 }
 
 .skills__wrap {
@@ -713,12 +875,29 @@ html {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-bottom: 5px;
 }
 
 .keys-listitem {
+  position: relative;
   font-size: 18px;
   padding: 7px 14px;
   background-color: #efefef;
+}
+
+.keys-listitem .li-remove {
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  font-size: 15px;
+  border: none;
+}
+
+.keys-listul .item-edit {
+  position: relative;
+  padding-left: 7px;
+  padding-right: 30px;
+  background-color: var(--edit-resume);
 }
 
 .experience__wrap {
@@ -731,6 +910,10 @@ html {
   font-weight: 600;
   text-align: left;
   margin-bottom: 23px;
+}
+
+.experience__wrap button.edit {
+  margin-left: 65px;
 }
 
 .experience__wrap-table tr {
@@ -767,12 +950,38 @@ html {
 
 .experience__wrap-table td .td-title {
   font-weight: 600;
+  height: 20px;
+}
+
+.td-title.goup {
+  transform: translateY(-5px);
+}
+
+.td-title .li-remove {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--bg-red);
+  border: none;
+}
+
+.title-edit {
+  margin-left: 10px;
+  transform: translateY(3px);
+  width: 20px;
+  height: 20px;
+  background: url(img/pencil.svg) no-repeat;
+  background-size: 15px;
+  background-position: 0 3px;
+}
+
+.title-edit-show {
+  display: inline-block;
 }
 
 .experience__wrap-table .td-right .td-title {
   margin-bottom: 8px;
   padding-left: 4px;
-  font-size: 19px;
+  font-size: 17px;
   letter-spacing: 0.2px;
 }
 
@@ -786,9 +995,13 @@ html {
 
 .pretendent-card__study {
   padding-top: 35px;
-  padding-bottom: 35px;
+  padding-bottom: 5px;
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
+}
+
+.study__wrap-table {
+  width: 100%;
 }
 
 .study__wrap caption {
@@ -798,25 +1011,68 @@ html {
   margin-bottom: 22px;
 }
 
+.study__wrap caption button {
+  margin-left: 60px;
+}
+
 .study__wrap-table td:nth-child(1) {
-  width: 24%;
+  width: 22%;
   padding-right: 5px;
   padding-left: 0;
   font-size: 17px;
   vertical-align: top;
 }
 
-.study__wrap-table td:nth-child(1) span {
-  font-weight: 600;
-}
-
 .study__wrap-table td:nth-child(2) {
-  width: 76%;
+  width: 78%;
   font-size: 18px;
-  padding-left: 50px;
+  padding-left: 8px;
+  padding-bottom: 20px;
 }
 
 .study__wrap-table td .td-title {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.pretendent-card__courses {
+  padding-top: 35px;
+  padding-bottom: 5px;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.courses__wrap-table {
+  width: 100%;
+}
+
+.courses__wrap caption {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 22px;
+}
+
+.courses__wrap caption button {
+  margin-left: 60px;
+}
+
+.courses__wrap-table td:nth-child(1) {
+  width: 22%;
+  padding-right: 5px;
+  padding-left: 0;
+  font-size: 17px;
+  vertical-align: top;
+}
+
+.courses__wrap-table td:nth-child(2) {
+  width: 78%;
+  font-size: 18px;
+  padding-left: 8px;
+  padding-bottom: 20px;
+}
+
+.courses__wrap-table td .td-title {
   font-weight: 600;
   margin-bottom: 12px;
 }
@@ -834,6 +1090,10 @@ html {
   text-align: left;
 }
 
+.language__wrap-title button {
+  margin-left: 60px;
+}
+
 .language__wrap-text {
   margin-top: 25px;
   font-size: 20px;
@@ -845,6 +1105,13 @@ html {
 
 .language__wrap-text span:nth-child(2) {
   margin-left: 10px;
+}
+
+.language__wrap-text .li-remove {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--bg-red);
+  border: none;
 }
 
 .pretendent-card__interest {
@@ -1299,4 +1566,9 @@ html {
 
 .share-g a {
   background: url(img/google.png) center center no-repeat;
+}
+
+
+iframe {
+  border: none;
 }
