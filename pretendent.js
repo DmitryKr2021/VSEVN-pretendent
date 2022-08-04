@@ -8,6 +8,27 @@ moreAdsBtn.onclick = () => {
   }
 };*/
 
+/****************Замена фото**************** */
+const changeFoto = document.querySelector('.change-foto');
+const chooseFoto = document.querySelector('.choose-foto');
+const resumeImg = document.querySelector('.resume-img');
+
+changeFoto.onclick = function () {
+  chooseFoto.classList.remove('initial-hide');
+};
+
+chooseFoto.addEventListener('change', function (e) {
+  let fileImg = e.target.files[0];
+  let fr = new FileReader();
+  fr.onload = function (e2) {
+    resumeImg.setAttribute('src', e2.target.result);
+  };
+  fr.readAsDataURL(fileImg);
+  chooseFoto.classList.add('initial-hide');
+});
+/**************Конец замена фото****************/
+
+
 /************Отредактировать резюме************ */
 const editResume = document.querySelector('.edit-resume');
 const edits = document.querySelectorAll('.edit');
@@ -21,36 +42,129 @@ const titleEdits = document.querySelectorAll('.title-edit');
 const tdTitles = document.querySelectorAll('.td-title');
 const contactsWrap = document.querySelector('.contacts-wrap');
 const contactsWrapEdit = document.querySelector('.contacts-wrap__edit');
+const pencils = document.querySelectorAll('.pencil');
+const contactTelNumber = document.querySelector('.contact-tel__number');
+const contactEmailAdress = document.querySelector('.contact-email__adress');
+const editTelPlaceholder = document.querySelector('.edit-tel').getAttribute("placeholder");
+const editEmailPlaceholder = document.querySelector('.edit-mail').getAttribute("placeholder");
+let telOk = false;
+let EmailOk = false;
+
+const toEditResume = 'Отредактировать резюме';
+const toSaveResume = 'Сохранить изменения';
+let resumeEdited = false;
 
 editResume.addEventListener('click', function () {
-  for (let item of edits) {
-    item.classList.remove('initial-hide');
-  }
-  for (let item of liRemoves) {
-    item.classList.remove('initial-hide');
-  }
-  for (let item of infoItems) {
-    item.classList.add('edit-info');
-  }
-  for (let item of listItems) {
-    item.classList.add('item-edit');
-  }
-  for (let item of titleEdits) {
-    item.classList.add('title-edit-show');
-  }
-  for (let item of tdTitles) {
-    if (item.childNodes[1]) {
-      if (item.childNodes[1].tagName == 'SPAN') {
-        item.classList.add('goup');
+  if (!resumeEdited) { //начать редактирование
+    this.querySelector('span').innerHTML = toSaveResume;
+    this.classList.add('active');
+
+    for (let item of edits) {
+      item.classList.remove('initial-hide');
+    }
+    for (let item of liRemoves) {
+      item.classList.remove('initial-hide');
+    }
+    for (let item of pencils) {
+      item.classList.remove('initial-hide');
+    }
+    for (let item of listItems) {
+      item.classList.add('item-edit');
+    }
+    for (let item of titleEdits) {
+      item.classList.add('title-edit-show');
+    }
+
+    for (let item of tdTitles) {
+      if (item.childNodes[1]) {
+        if (item.childNodes[1].tagName == 'SPAN') {
+          item.classList.add('goup');
+        }
       }
     }
+    for (let item of document.querySelectorAll('.keys-listitem')) {
+      item.classList.add('item-edit');
+      item.querySelector('.li-remove').classList.remove('initial-hide');
+    }
+
+    contactsWrap.style.display = 'none';
+    contactsWrapEdit.style.display = 'flex';
+
+    adressWrap.classList.add('edit-info');
+    skillsWrapList.classList.add('edit-info');
+
+    resumeEdited = !resumeEdited;
+
+  } else { //закончить редактирование и сохранить
+    if (telOk && EmailOk) {
+      this.querySelector('span').innerHTML = toEditResume;
+      this.classList.remove('active');
+
+      for (let item of edits) {
+        item.classList.add('initial-hide');
+      }
+      for (let item of liRemoves) {
+        item.classList.add('initial-hide');
+      }
+      for (let item of pencils) {
+        item.classList.add('initial-hide');
+      }
+      for (let item of listItems) {
+        item.classList.remove('item-edit');
+      }
+      for (let item of titleEdits) {
+        item.classList.remove('title-edit-show');
+      }
+      for (let item of tdTitles) {
+        if (item.childNodes[1]) {
+          if (item.childNodes[1].tagName == 'SPAN') {
+            item.classList.remove('goup');
+          }
+        }
+      }
+
+      //вернуть вид ключевых навыков
+      for (let item of document.querySelectorAll('.keys-listitem')) {
+        item.classList.remove('item-edit');
+        item.querySelector('.li-remove').classList.add('initial-hide');
+      }
+
+      //спрятать карандаш и крестик в новой работе
+      if (newTr) {
+        newTr.querySelector('.pencil').classList.add('initial-hide');
+        newTr.querySelector('.li-remove').classList.add('initial-hide');
+      }
+
+      //спрятать карандаш и крестик в новом образовании
+      if (newStudyTr) {
+        newStudyTr.querySelector('.pencil').classList.add('initial-hide');
+        newStudyTr.querySelector('.li-remove').classList.add('initial-hide');
+      }
+
+      //спрятать карандаш и крестик в новых курсах
+      if (newCoursesTr) {
+        newCoursesTr.querySelector('.pencil').classList.add('initial-hide');
+        newCoursesTr.querySelector('.li-remove').classList.add('initial-hide');
+      }
+
+      //спрятать карандаш и крестик в новом языке
+      if (newLanguageTr) {
+        newLanguageTr.querySelector('.pencil').classList.add('initial-hide');
+        newLanguageTr.querySelector('.li-remove').classList.add('initial-hide');
+      }
+
+      contactsWrap.style.display = 'flex';
+      contactsWrapEdit.style.display = 'none';
+
+      adressWrap.classList.remove('edit-info');
+      skillsWrapList.classList.remove('edit-info');
+
+      contactTelNumber.innerText = editTel.value || editTelPlaceholder;
+      contactEmailAdress.innerText = editMail.value || editEmailPlaceholder;
+
+      resumeEdited = !resumeEdited;
+    }
   }
-
-  contactsWrap.style.display = 'none';
-  contactsWrapEdit.style.display = 'flex';
-
-  adressWrap.classList.add('edit-info');
-  skillsWrapList.classList.add('edit-info');
 });
 /**********Конец отредактировать резюме***********/
 
@@ -102,3 +216,1053 @@ function toFavorite() {
   }
 }
 /***********Конец добавить в избранное********** */
+
+/****************Проверка телефона***************** */
+/**********Маска телефона***********/
+window.addEventListener('DOMContentLoaded', function () {
+  let inputs = document.querySelectorAll('input[type="tel"]');
+
+  Array.prototype.forEach.call(inputs, function (input) {
+    new InputMask({
+      selector: input, // в качестве селектора может быть элемент, или css селектор('#input', '.input', 'input'). 
+      //Если селектор - тег или класс - будет получен только первый элемент
+      layout: input.dataset.mask
+    });
+  });
+});
+
+function InputMask(options) {
+  this.el = this.getElement(options.selector);
+  if (!this.el) {
+    return console.log('Что-то не так с селектором');
+  }
+  this.layout = options.layout || '+7(___) ___-__-__';
+  this.maskreg = this.getRegexp();
+  this.setListeners();
+}
+
+InputMask.prototype.getRegexp = function () {
+  var str = this.layout.replace(/_/g, '\\d');
+
+  str = str.replace(/\(/g, '\\(');
+  str = str.replace(/\)/g, '\\)');
+  str = str.replace(/\+/g, '\\+');
+  str = str.replace(/\s/g, '\\s');
+
+  return str;
+};
+
+InputMask.prototype.mask = function (e) {
+  var _this = e.target,
+    matrix = this.layout,
+    i = 0,
+    def = matrix.replace(/\D/g, ""),
+    val = _this.value.replace(/\D/g, "");
+
+  if (def.length >= val.length) {
+    val = def;
+  }
+
+  _this.value = matrix.replace(/./g, function (a) {
+    return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a;
+  });
+
+  if (e.type == "blur") {
+    var regexp = new RegExp(this.maskreg);
+    if (!regexp.test(_this.value)) {
+      _this.value = "";
+    }
+  } else {
+    this.setCursorPosition(_this.value.length, _this);
+  }
+};
+
+InputMask.prototype.setCursorPosition = function (pos, elem) {
+  elem.focus();
+  if (elem.setSelectionRange) {
+    elem.setSelectionRange(pos, pos);
+  } else if (elem.createTextRange) {
+    var range = elem.createTextRange();
+    range.collapse(true);
+    range.moveEnd("character", pos);
+    range.moveStart("character", pos);
+    range.select();
+  }
+};
+
+InputMask.prototype.setListeners = function () {
+  this.el.addEventListener("input", this.mask.bind(this), false);
+  this.el.addEventListener("focus", this.mask.bind(this), false);
+  //this.el.addEventListener("blur", this.mask.bind(this), false);
+};
+
+InputMask.prototype.getElement = function (selector) {
+  if (selector === undefined) {
+    return false;
+  }
+  if (this.isElement(selector)) {
+    return selector;
+  }
+  if (typeof selector == 'string') {
+    var el = document.querySelector(selector);
+    if (this.isElement(el)) {
+      return el;
+    }
+  }
+  return false;
+};
+
+InputMask.prototype.isElement = function (element) {
+  return element instanceof Element || element instanceof HTMLDocument;
+};
+/******Конец маска телефона*****/
+
+const editTel = document.querySelector('.edit-tel');
+const tel_editContact = document.querySelectorAll('.edit-contact')[0];
+const checkNumber = 'Проверьте формат номера';
+const inputNumber = 'Введите телефон в формате +7(9ХХ)ХХХ-ХХ-ХХ';
+telOk = true;
+
+editTel.onfocus = function () {
+  editTel.classList.add('ok');
+  tel_editContact.innerHTML = inputNumber;
+  telOk = false;
+};
+
+editTel.onblur = () => {
+  if (editTel.value.length == 16 && editTel.value[3] == 9) {
+    editTel.classList.add('ok');
+    telOk = true;
+    tel_editContact.innerHTML = '';
+  } else {
+    editTel.classList.remove('ok');
+    tel_editContact.innerHTML = checkNumber;
+  }
+};
+/**************Конец проверка телефона****************/
+
+/*****************Проверка Email********************/
+const reqMail = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+const editMail = document.querySelector('.edit-mail');
+const checkEmail = 'Проверьте формат E-mail';
+const inputEmail = 'Введите E-mail';
+const mail_editContact = document.querySelectorAll('.edit-contact')[1];
+EmailOk = true;
+
+editMail.onfocus = function () {
+  editMail.classList.add('ok');
+  mail_editContact.innerHTML = inputEmail;
+  EmailOk = false;
+};
+
+editMail.onblur = () => {
+  if (reqMail.test(editMail.value)) {
+    editMail.classList.add('ok');
+    EmailOk = true;
+    mail_editContact.innerHTML = '';
+  } else {
+    editMail.classList.remove('ok');
+    mail_editContact.innerHTML = checkEmail;
+  }
+};
+/**************Конец проверка Email****************/
+
+
+/******************Редактирование резюме********** */
+const resumeMainPopup = document.querySelector('.resume-main__popup');
+const resumeMainPopupTitle = document.querySelector('.resume-main__popup-title');
+const resumeMainPopupInput = document.querySelector('#resume-main__popup-input');
+const resumeMainPopupAdv = document.querySelector('.resume-main__popup-adv');
+//const resumeMainInfo    определен выше
+const infoPencils = resumeMainInfo.querySelectorAll('.pencil');
+const popupAdv = resumeMainInfo.querySelector('.popup-adv');
+const forPopupInput = resumeMainInfo.querySelector('.for__popup-input');
+const popupHide = document.querySelector('.popup-hide');
+let targ;
+let popupRect;
+
+for (let pencil of infoPencils) {
+  pencil.addEventListener('click', pencilClick);
+}
+
+function pencilClick(e) {
+  targ = e.target;
+  resumeMainPopup.classList.remove('hide-block');
+  resumeMainPopupInput.value = '';
+
+  let thisText = targ.nextElementSibling.innerText;
+  resumeMainPopupTitle.innerText = thisText.slice(0, thisText.length - 1);
+  popupAdv.innerText = thisText.toLowerCase();
+  forPopupInput.innerText = thisText.slice(0, thisText.length - 1);
+}
+
+resumeMainPopupInput.onfocus = function () {
+  this.classList.add('ok');
+  this.classList.remove('no-input');
+  resumeMainPopupAdv.classList.remove('no-input');
+};
+resumeMainPopupInput.onblur = function () {
+  if (!this.value) { //ничего не введено
+    this.classList.add('no-input');
+    resumeMainPopupAdv.classList.add('no-input');
+  } else { //введено значение
+    this.classList.remove('no-input');
+    this.classList.add('ok');
+    forPopupInput.innerText = '';
+    resumeMainPopupAdv.classList.add('input');
+    targ.nextElementSibling.nextElementSibling.innerText = this.value;
+  }
+};
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_one);
+
+function close_one(e) {
+  if (!e.target.classList.contains('pencil-resume')) {
+    //найти координаты popup
+    popupRect = resumeMainPopup.getBoundingClientRect();
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (eX < popupRect.left || eX > popupRect.right ||
+      eY < popupRect.top || eY > popupRect.bottom) {
+      closePopup();
+    }
+  }
+}
+
+popupHide.onclick = closePopup;
+
+function closePopup(e) {
+  resumeMainPopup.classList.add('hide-block');
+  resumeMainPopupInput.classList.remove('no-input');
+  resumeMainPopupInput.classList.remove('ok');
+  resumeMainPopupAdv.classList.remove('no-input');
+  resumeMainPopupAdv.classList.remove('input');
+}
+/**************Конец редактирование резюме******** */
+
+
+/************Редактирование адреса и общих навыков***********/
+const pretendentAdress = document.querySelector('.pretendent__adress');
+const pencilAdress = document.querySelector('.pencil-adress');
+const adressPopup = document.querySelector('.adress__popup');
+const adressPopupHide = document.querySelector('.adress__popup-hide');
+const adressPopupInput = document.querySelector('#adress__popup-input');
+const adressPopupAdv = document.querySelector('.adress__popup-adv');
+const forAdressPopupInput = document.querySelector('.for__adress_popup-input');
+
+pencilAdress.onclick = (e) => {
+  adressPopup.classList.remove('hide-block');
+  targ = e.target;
+  adressPopupInput.value = '';
+  forAdressPopupInput.innerText = 'Адрес';
+};
+
+adressPopupHide.onclick = closeAdressPopup;
+
+adressPopupInput.onfocus = function () {
+  this.classList.add('ok');
+  this.classList.remove('no-input');
+  adressPopupAdv.classList.remove('no-input');
+};
+
+adressPopupInput.onblur = function (e) {
+  if (!this.value) { //ничего не введено
+    this.classList.add('no-input');
+    adressPopupAdv.classList.add('no-input');
+  } else { //введено значение
+    this.classList.remove('no-input');
+    this.classList.add('ok');
+    forAdressPopupInput.innerText = '';
+    adressPopupAdv.classList.add('input');
+    pretendentAdress.innerText = this.value;
+  }
+};
+
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_two);
+
+function close_two(e) {
+  //найти координаты popup
+  popupRect = adressPopup.getBoundingClientRect();
+  let eX = e.clientX;
+  let eY = e.clientY;
+  if (eX < popupRect.left || eX > popupRect.right ||
+    eY < popupRect.top || eY > popupRect.bottom) {
+    closeAdressPopup();
+  }
+}
+
+function closeAdressPopup(e) {
+  adressPopup.classList.add('hide-block');
+  adressPopupInput.classList.remove('no-input');
+  adressPopupInput.classList.remove('ok');
+  adressPopupAdv.classList.remove('no-input');
+  adressPopupAdv.classList.remove('input');
+}
+/********************** */
+const generalSkills = document.querySelector('.general-skills');
+const pencilSkills = document.querySelector('.pencil-skills');
+const skillsPopup = document.querySelector('.skills__popup');
+const skillsPopupHide = document.querySelector('.skills__popup-hide');
+const skillsPopupInput = document.querySelector('#skills__popup-input');
+const skillsPopupAdv = document.querySelector('.skills__popup-adv');
+
+pencilSkills.onclick = (e) => {
+  skillsPopup.classList.remove('hide-block');
+  targ = e.target;
+  skillsPopupInput.value = '';
+};
+
+skillsPopupHide.onclick = closeSkillsPopup;
+
+skillsPopupInput.onfocus = function () {
+  this.classList.add('ok');
+  this.classList.remove('no-input');
+  skillsPopupAdv.classList.remove('no-input');
+};
+
+skillsPopupInput.onblur = function (e) {
+  if (!this.value) { //ничего не введено
+    this.classList.add('no-input');
+    skillsPopupAdv.classList.add('no-input');
+  } else { //введено значение
+    this.classList.remove('no-input');
+    this.classList.add('ok');
+    skillsPopupAdv.classList.add('input');
+    generalSkills.innerText = this.value;
+  }
+};
+
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_three);
+
+function close_three(e) {
+  //найти координаты popup
+  popupRect = skillsPopup.getBoundingClientRect();
+  let eX = e.clientX;
+  let eY = e.clientY;
+  if (eX < popupRect.left || eX > popupRect.right ||
+    eY < popupRect.top || eY > popupRect.bottom) {
+    closeSkillsPopup();
+  }
+}
+
+function closeSkillsPopup(e) {
+  skillsPopup.classList.add('hide-block');
+  skillsPopupInput.classList.remove('no-input');
+  skillsPopupInput.classList.remove('ok');
+  skillsPopupAdv.classList.remove('no-input');
+  skillsPopupAdv.classList.remove('input');
+}
+/*********Конец редактирование адреса и общих навыков********/
+
+
+/************Редактирование ключевых навыков***************/
+let keysListItems = document.querySelectorAll('.keys-listitem');
+const addKeySkill = document.querySelector('.add__key-skill');
+const keysListUl = document.querySelector('.keys-listul');
+const template01 = keysListItems[0].innerHTML;
+const keySkillsPopup = document.querySelector('.key-skills__popup');
+const keySkillsPopupAdv = document.querySelector('.key-skills__popup-adv');
+const keySkillsPopupHide = document.querySelector('.key-skills__popup-hide');
+const keySkillsPopupInput = document.querySelector('#key-skills__popup-input');
+let newLi;
+
+function removeLi(e) { //удалить навык
+  //let thisText = e.target.closest('li').querySelector('span').innerText;
+  e.target.parentNode.remove();
+}
+
+addKeySkill.onclick = () => { //добавить навык
+  keySkillsPopup.classList.remove('hide-block');
+  newLi = document.createElement('li');
+  newLi.innerHTML = template01;
+  newLi.classList.add('keys-listitem');
+  newLi.classList.add('item-edit');
+  newLi.querySelector('.li-remove').classList.remove('initial-hide');
+  keySkillsPopupInput.value = '';
+  keySkillsPopupHide.onclick = closeKeySkillsPopup;
+
+  newLi.querySelector('.li-remove').addEventListener('click', function (e) {
+    e.target.parentNode.remove();
+    newLi = null;
+  });
+
+  function closeKeySkillsPopup(e) {
+    keySkillsPopup.classList.add('hide-block');
+    keySkillsPopupInput.classList.remove('no-input');
+    keySkillsPopupInput.classList.remove('ok');
+    keySkillsPopupAdv.classList.remove('no-input');
+    keySkillsPopupAdv.classList.remove('input');
+    if (keySkillsPopupInput.value) {
+      newLi.querySelector('span').innerText = keySkillsPopupInput.value;
+      keysListUl.append(newLi);
+    }
+  }
+};
+
+for (let item of keysListItems) {
+  const liRemove = item.querySelector('.li-remove');
+  liRemove.onclick = removeLi;
+}
+
+keySkillsPopupInput.onfocus = function () {
+  this.classList.add('ok');
+  this.classList.remove('no-input');
+  keySkillsPopupAdv.classList.remove('no-input');
+};
+
+keySkillsPopupInput.onblur = function (e) {
+  if (!this.value) { //ничего не введено
+    this.classList.add('no-input');
+    keySkillsPopupAdv.classList.add('no-input');
+  } else { //введено значение
+    this.classList.remove('no-input');
+    this.classList.add('ok');
+  }
+};
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_four);
+
+function close_four(e) {
+  if (!e.target.classList.contains('add__key-skill') && !e.target.classList.contains('li-remove')) {
+    //найти координаты popup
+    popupRect = keySkillsPopup.getBoundingClientRect();
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (eX < popupRect.left || eX > popupRect.right ||
+      eY < popupRect.top || eY > popupRect.bottom) {
+      keySkillsPopup.classList.add('hide-block');
+    }
+    if (keySkillsPopupInput.value) {
+      if (newLi) {
+        newLi.querySelector('span').innerText = keySkillsPopupInput.value;
+        keysListUl.append(newLi);
+      }
+    }
+  }
+}
+/************Конец редактирование ключевых навыков***************/
+
+
+/**********************Удалить строку в таблице ************* */
+//const tdTitles=document.querySelectorAll('.td-title'); задан выше
+for (let item of tdTitles) {
+  if (item.querySelector('.li-remove')) {
+    item.querySelector('.li-remove').addEventListener('click', function (e) {
+      e.target.closest('tr').remove();
+    });
+  }
+}
+/*****************Конец удалить строку в таблице **************/
+
+
+/***************Добавить новое место работы***************** */
+const skillsWrapExperience = document.querySelector('.skills__wrap-experience');
+const experienceWrapTable = document.querySelector('.experience__wrap-table');
+const addNewWork = document.querySelector('.add-newwork');
+const trTemplate = experienceWrapTable.querySelectorAll('tr')[0];
+const innerTrHTML = trTemplate.innerHTML;
+const newWorkPopup = document.querySelector('.new-work__popup');
+const newWorkPopupHide = document.querySelector('.new-work__popup-hide');
+const newWorkPopupInputs = document.querySelectorAll('.new-work__popup-input');
+let newTr;
+let newTrFilled = false; //ни одно поле не заполнено
+
+addNewWork.onclick = function () {
+  newWorkPopup.classList.remove('hide-block');
+
+  newTr = document.createElement('tr');
+
+  newTr.innerHTML = innerTrHTML;
+  newTr.querySelector('.title-edit').classList.remove('initial-hide');
+  newTr.querySelector('.pencil').classList.remove('initial-hide');
+  newTr.querySelector('.li-remove').classList.remove('initial-hide');
+  newTr.querySelector('.li-remove').onclick = () => {
+    newTr.remove();
+  };
+
+  newTr.querySelector('.pencil').onclick = editWork;
+};
+
+for (let item of newWorkPopupInputs) {
+  item.querySelector('input').addEventListener('focus', inputFocus);
+  item.querySelector('input').addEventListener('blur', inputBlur);
+}
+
+function inputFocus(e) {
+  let targPN = e.target.parentNode;
+  targPN.classList.add('ok');
+  targPN.classList.remove('no-input');
+  targPN.previousElementSibling.classList.remove('no-input');
+}
+
+function inputBlur(e) {
+  let targPN = e.target.parentNode;
+  if (!e.target.value) { //ничего не введено
+    targPN.classList.add('no-input');
+    targPN.previousElementSibling.classList.add('no-input');
+  } else { //введено значение
+    targPN.classList.remove('no-input');
+    targPN.classList.add('ok');
+    //skillsPopupAdv.classList.add('input');
+  }
+}
+
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_five);
+
+function close_five(e) {
+  if (!e.target.classList.contains('add-newwork')) {
+
+    //найти координаты popup
+    popupRect = newWorkPopup.getBoundingClientRect();
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (eX < popupRect.left || eX > popupRect.right ||
+      eY < popupRect.top || eY > popupRect.bottom) {
+      closeNewWorkPopup();
+    }
+  }
+}
+
+function closeNewWorkPopup() {
+  newWorkPopup.classList.add('hide-block');
+  fillNewTr();
+  if (newTrFilled) {
+    experienceWrapTable.querySelector('tbody').prepend(newTr);
+  }
+}
+
+newWorkPopupHide.onclick = closeNewWorkPopup;
+
+function fillNewTr() {
+  let value1 = document.querySelector('#new-work__duration').value;
+  let value2 = document.querySelector('#new-work__date').value;
+  let value3 = document.querySelector('#new-work__company').value;
+  let value4 = document.querySelector('#new-work__duty').value;
+
+  if (newTr) {
+    newTr.querySelector('.td-left').querySelector('.td-title').innerText = value1;
+
+    newTr.querySelector('.td-left').querySelector('.td-text').innerText = value2;
+
+    newTr.querySelector('.td-right').querySelector('.td-title__span').innerText = value3;
+
+    newTr.querySelector('.td-right').querySelector('.td-text').innerText = value4;
+
+    newTr.querySelector('.li-remove').onclick = (e) => {
+      e.target.closest('td').parentNode.remove();
+      e.target.closest('td').parentNode.style.display = 'none';
+    };
+  }
+  if (value1 || value2 || value3 || value4) {
+    newTrFilled = true;
+  }
+}
+
+editResume.addEventListener('click', showPencil);
+
+function showPencil() {
+  if (resumeEdited) {
+    if (newTr) {
+      newTr.querySelector('.pencil').classList.remove('initial-hide');
+      newTr.querySelector('.li-remove').classList.remove('initial-hide');
+    }
+  }
+}
+/*************Конец добавить новое место работы***************/
+
+
+/****************Редактировать место работы*****************/
+const editWorkPopup = document.querySelector('.edit-work__popup');
+const editWorkPopupHide = document.querySelector('.edit-work__popup-hide');
+const editWorkDuration = document.querySelector('#edit-work__duration');
+const editWorkDate = document.querySelector('#edit-work__date');
+const editWorkCompany = document.querySelector('#edit-work__company');
+const editWorkDuty = document.querySelector('#edit-work__duty');
+const editWorkPencils = skillsWrapExperience.querySelectorAll('.pencil');
+let targTR;
+
+for (let item of editWorkPencils) {
+  item.addEventListener('click', editWork);
+}
+
+function editWork(e) {
+  editWorkPopup.classList.remove('hide-block');
+  targTR = e.target.closest('tr');
+  let oneString = targTR.querySelectorAll('.td-title')[1].innerText;
+  editWorkDuration.value = targTR.querySelectorAll('.td-title')[0].innerText;
+  editWorkDate.value = targTR.querySelectorAll('.td-text')[0].innerText;
+  editWorkCompany.value = oneString.slice(0, oneString.length - 2);
+  editWorkDuty.value = targTR.querySelectorAll('.td-text')[1].innerText;
+}
+
+editWorkPopupHide.onclick = closeEditWorkPopup;
+
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_six);
+
+function close_six(e) {
+  if (!e.target.classList.contains('pencil')) {
+
+    //найти координаты popup
+    popupRect = editWorkPopup.getBoundingClientRect();
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (eX < popupRect.left || eX > popupRect.right ||
+      eY < popupRect.top || eY > popupRect.bottom) {
+      closeEditWorkPopup();
+    }
+  }
+}
+
+function closeEditWorkPopup() {
+  if (targTR) {
+    targTR.querySelectorAll('.td-title')[0].innerText = editWorkDuration.value;
+    targTR.querySelectorAll('.td-text')[0].innerText = editWorkDate.value;
+    targTR.querySelectorAll('.td-title')[1].innerText = editWorkCompany.value;
+    targTR.querySelectorAll('.td-text')[1].innerText = editWorkDuty.value;
+  }
+
+  editWorkPopup.classList.add('hide-block');
+}
+/*************Конец редактировать место работы***************/
+
+
+/***************Добавить образование***************** */
+const pretendentCardStudy = document.querySelector('.pretendent-card__study');
+const studyWrapTable = document.querySelector('.study__wrap-table');
+const addNewStudy = document.querySelector('.add-newstudy');
+const trStudyTemplate = studyWrapTable.querySelectorAll('tr')[0];
+const innerStudyHTML = trStudyTemplate.innerHTML;
+const studyPopup = document.querySelector('.study__popup');
+const studyPopupHide = document.querySelector('.study__popup-hide');
+const studyPopupInputs = document.querySelectorAll('.study__popup-input');
+let newStudyTr;
+let newStudyTrFilled = false; //ни одно поле не заполнено
+
+addNewStudy.onclick = function () {
+  studyPopup.classList.remove('hide-block');
+
+  newStudyTr = document.createElement('tr');
+
+  newStudyTr.innerHTML = innerStudyHTML;
+  newStudyTr.querySelector('.title-edit').classList.remove('initial-hide');
+  newStudyTr.querySelector('.pencil').classList.remove('initial-hide');
+  newStudyTr.querySelector('.li-remove').classList.remove('initial-hide');
+  newStudyTr.querySelector('.li-remove').onclick = () => {
+    newStudyTr.remove();
+  };
+
+  newStudyTr.querySelector('.pencil').onclick = editStudy;
+};
+
+
+for (let item of studyPopupInputs) {
+  item.querySelector('input').addEventListener('focus', inputFocus);
+  item.querySelector('input').addEventListener('blur', inputBlur);
+}
+//функции inputBlur, inputFocus определены в новой работе 
+
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_seven);
+
+function close_seven(e) {
+  if (!e.target.classList.contains('add-newstudy')) {
+
+    //найти координаты popup
+    popupRect = studyPopup.getBoundingClientRect();
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (eX < popupRect.left || eX > popupRect.right ||
+      eY < popupRect.top || eY > popupRect.bottom) {
+      closeStudyPopup();
+    }
+  }
+}
+
+function closeStudyPopup() {
+  studyPopup.classList.add('hide-block');
+  fillNewStudyTr();
+  if (newStudyTrFilled) {
+    studyWrapTable.querySelector('tbody').prepend(newStudyTr);
+  }
+}
+
+studyPopupHide.onclick = closeStudyPopup;
+
+function fillNewStudyTr() {
+  let value1 = document.querySelector('#study__type').value;
+  let value2 = document.querySelector('#study__graduate').value;
+  let value3 = document.querySelector('#study__profession').value;
+
+  if (newStudyTr) {
+    newStudyTr.querySelector('.td-left').innerText = value1;
+
+    newStudyTr.querySelector('.td-right').querySelector('.td-title__span').innerText = value2;
+
+    newStudyTr.querySelector('.td-right').querySelector('.td-text').innerText = value3;
+
+    newStudyTr.querySelector('.li-remove').onclick = (e) => {
+      e.target.closest('td').parentNode.remove();
+      e.target.closest('td').parentNode.style.display = 'none';
+    };
+  }
+  if (value1 || value2 || value3) {
+    newStudyTrFilled = true;
+  }
+}
+
+editResume.addEventListener('click', showStudyPencil);
+
+function showStudyPencil() {
+  if (resumeEdited) {
+    if (newStudyTr) {
+      newStudyTr.querySelector('.pencil').classList.remove('initial-hide');
+      newStudyTr.querySelector('.li-remove').classList.remove('initial-hide');
+    }
+  }
+}
+/*************Конец добавить образование***************/
+
+
+/****************Редактировать образование*****************/
+const editStudyPopup = document.querySelector('.edit-study__popup');
+const editStudyPopupHide = document.querySelector('.edit-study__popup-hide');
+const editStudyType = document.querySelector('#edit-study__type');
+const editStudyGraduate = document.querySelector('#edit-study__graduate');
+const editStudyProfession = document.querySelector('#edit-study__profession');
+const editStudyPencils = pretendentCardStudy.querySelectorAll('.pencil');
+let targStudy;
+
+for (let item of editStudyPencils) {
+  item.addEventListener('click', editStudy);
+}
+
+function editStudy(e) {
+  editStudyPopup.classList.remove('hide-block');
+  targStudy = e.target.closest('tr');
+  editStudyType.value = targStudy.querySelector('.td-left').innerText;
+  editStudyGraduate.value = targStudy.querySelector('.td-title__span').innerText;
+  editStudyProfession.value = targStudy.querySelector('.td-text').innerText;
+}
+
+editStudyPopupHide.onclick = closeEditStudyPopup;
+
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_eight);
+
+function close_eight(e) {
+  if (!e.target.classList.contains('pencil')) {
+
+    //найти координаты popup
+    popupRect = editStudyPopup.getBoundingClientRect();
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (eX < popupRect.left || eX > popupRect.right ||
+      eY < popupRect.top || eY > popupRect.bottom) {
+      closeEditStudyPopup();
+    }
+  }
+}
+
+function closeEditStudyPopup() {
+  if (targStudy) {
+    targStudy.querySelector('.td-left').innerText = editStudyType.value;
+    targStudy.querySelector('.td-title__span').innerText = editStudyGraduate.value;
+    targStudy.querySelector('.td-text').innerText = editStudyProfession.value;
+  }
+
+  editStudyPopup.classList.add('hide-block');
+}
+/*************Конец редактировать образование***************/
+
+
+/************Добавить Повышение квалификации, курсы***********/
+const pretendentCardCourses = document.querySelector('.pretendent-card__courses');
+const coursesWrapTable = document.querySelector('.courses__wrap-table');
+const addNewCourses = document.querySelector('.add-newcourses');
+const trCourseTemplate = coursesWrapTable.querySelectorAll('tr')[0];
+const innerCoursesHTML = trCourseTemplate.innerHTML;
+const coursesPopup = document.querySelector('.courses__popup');
+const coursesPopupHide = document.querySelector('.courses__popup-hide');
+const coursesPopupInputs = document.querySelectorAll('.courses__popup-input');
+let newCoursesTr;
+let newCoursesTrFilled = false; //ни одно поле не заполнено
+
+addNewCourses.onclick = function () {
+  coursesPopup.classList.remove('hide-block');
+
+  newCoursesTr = document.createElement('tr');
+
+  newCoursesTr.innerHTML = innerCoursesHTML;
+  newCoursesTr.querySelector('.title-edit').classList.remove('initial-hide');
+  newCoursesTr.querySelector('.pencil').classList.remove('initial-hide');
+  newCoursesTr.querySelector('.li-remove').classList.remove('initial-hide');
+  newCoursesTr.querySelector('.li-remove').onclick = () => {
+    newCoursesTr.remove();
+  };
+
+  newCoursesTr.querySelector('.pencil').onclick = editCourses;
+};
+
+for (let item of coursesPopupInputs) {
+  item.querySelector('input').addEventListener('focus', inputFocus);
+  item.querySelector('input').addEventListener('blur', inputBlur);
+}
+//функции inputBlur, inputFocus определены в новой работе 
+
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_nine);
+
+function close_nine(e) {
+  if (!e.target.classList.contains('add-newcourses')) {
+
+    //найти координаты popup
+    popupRect = coursesPopup.getBoundingClientRect();
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (eX < popupRect.left || eX > popupRect.right ||
+      eY < popupRect.top || eY > popupRect.bottom) {
+      closeCoursesPopup();
+    }
+  }
+}
+
+function closeCoursesPopup() {
+  coursesPopup.classList.add('hide-block');
+  fillNewCoursesTr();
+  if (newCoursesTrFilled) {
+    coursesWrapTable.querySelector('tbody').prepend(newCoursesTr);
+  }
+}
+
+coursesPopupHide.onclick = closeCoursesPopup;
+
+function fillNewCoursesTr() {
+  let value1 = document.querySelector('#courses__type').value;
+  let value2 = document.querySelector('#courses__graduate').value;
+  let value3 = document.querySelector('#courses__profession').value;
+
+  if (newCoursesTr) {
+    newCoursesTr.querySelector('.td-left').innerText = value1;
+
+    newCoursesTr.querySelector('.td-right').querySelector('.td-title__span').innerText = value2;
+
+    newCoursesTr.querySelector('.td-right').querySelector('.td-text').innerText = value3;
+
+    newCoursesTr.querySelector('.li-remove').onclick = (e) => {
+      e.target.closest('td').parentNode.remove();
+      e.target.closest('td').parentNode.style.display = 'none';
+    };
+  }
+  if (value1 || value2 || value3) {
+    newCoursesTrFilled = true;
+  }
+}
+
+editResume.addEventListener('click', showCoursesPencil);
+
+function showCoursesPencil() {
+  if (resumeEdited) {
+    if (newCoursesTr) {
+      newCoursesTr.querySelector('.pencil').classList.remove('initial-hide');
+      newCoursesTr.querySelector('.li-remove').classList.remove('initial-hide');
+    }
+  }
+}
+/**********Конец Добавить повышение квалификации, курсы********/
+
+/**********Редактировать Повышение квалификации, курсы*********/
+const editCoursesPopup = document.querySelector('.edit-courses__popup');
+const editCoursesPopupHide = document.querySelector('.edit-courses__popup-hide');
+const editCoursesType = document.querySelector('#edit-courses__type');
+const editCoursesGraduate = document.querySelector('#edit-courses__graduate');
+const editCoursesProfession = document.querySelector('#edit-courses__profession');
+const editCoursesPencils = pretendentCardCourses.querySelectorAll('.pencil');
+let targCourses;
+
+for (let item of editCoursesPencils) {
+  item.addEventListener('click', editCourses);
+}
+
+function editCourses(e) {
+  editCoursesPopup.classList.remove('hide-block');
+  targCourses = e.target.closest('tr');
+  editCoursesType.value = targCourses.querySelector('.td-left').innerText;
+  editCoursesGraduate.value = targCourses.querySelector('.td-title__span').innerText;
+  editCoursesProfession.value = targCourses.querySelector('.td-text').innerText;
+}
+
+editCoursesPopupHide.onclick = closeEditCoursesPopup;
+
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_ten);
+
+function close_ten(e) {
+  if (!e.target.classList.contains('pencil')) {
+
+    //найти координаты popup
+    popupRect = editCoursesPopup.getBoundingClientRect();
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (eX < popupRect.left || eX > popupRect.right ||
+      eY < popupRect.top || eY > popupRect.bottom) {
+      closeEditCoursesPopup();
+    }
+  }
+}
+
+function closeEditCoursesPopup() {
+  if (targCourses) {
+    targCourses.querySelector('.td-left').innerText = editCoursesType.value;
+    targCourses.querySelector('.td-title__span').innerText = editCoursesGraduate.value;
+    targCourses.querySelector('.td-text').innerText = editCoursesProfession.value;
+  }
+
+  editCoursesPopup.classList.add('hide-block');
+}
+/****Конец редактировать Повышение квалификации, курсы*******/
+
+
+/***********************Добавить язык *********************/
+const pretendentCardLanguage = document.querySelector('.pretendent-card__language');
+const languageWrapTable = document.querySelector('.language__wrap-table');
+const addNewLanguage = document.querySelector('.add-newlanguage');
+const trLanguageTemplate = languageWrapTable.querySelectorAll('tr')[0];
+const innerLanguageHTML = trLanguageTemplate.innerHTML;
+const languagePopup = document.querySelector('.language__popup');
+const languagePopupHide = document.querySelector('.language__popup-hide');
+const languagePopupInputs = document.querySelectorAll('.language__popup-input');
+let newLanguageTr;
+let newLanguageTrFilled = false; //ни одно поле не заполнено
+
+addNewLanguage.onclick = function () {
+  languagePopup.classList.remove('hide-block');
+
+  newLanguageTr = document.createElement('tr');
+
+  newLanguageTr.innerHTML = innerLanguageHTML;
+  newLanguageTr.querySelector('.title-edit').classList.remove('initial-hide');
+  newLanguageTr.querySelector('.pencil').classList.remove('initial-hide');
+  newLanguageTr.querySelector('.li-remove').classList.remove('initial-hide');
+  newLanguageTr.querySelector('.li-remove').onclick = () => {
+    newLanguageTr.remove();
+  };
+
+  newLanguageTr.querySelector('.pencil').onclick = editLanguage;
+};
+
+for (let item of languagePopupInputs) {
+  item.querySelector('input').addEventListener('focus', inputFocus);
+  item.querySelector('input').addEventListener('blur', inputBlur);
+}
+//функции inputBlur, inputFocus определены в новой работе 
+
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_eleven);
+
+function close_eleven(e) {
+  if (!e.target.classList.contains('add-newlanguage')) {
+
+    //найти координаты popup
+    popupRect = languagePopup.getBoundingClientRect();
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (eX < popupRect.left || eX > popupRect.right ||
+      eY < popupRect.top || eY > popupRect.bottom) {
+      closeLanguagePopup();
+    }
+  }
+}
+
+function closeLanguagePopup() {
+  languagePopup.classList.add('hide-block');
+  fillNewLanguageTr();
+  if (newLanguageTrFilled) {
+    languageWrapTable.querySelector('tbody').prepend(newLanguageTr);
+  }
+}
+
+languagePopupHide.onclick = closeLanguagePopup;
+
+function fillNewLanguageTr() {
+  let value1 = document.querySelector('#language__speack').value;
+  let value2 = document.querySelector('#language__level').value;
+
+  if (newLanguageTr) {
+    newLanguageTr.querySelector('.td-left').innerText = value1;
+
+    newLanguageTr.querySelector('.td-right').querySelector('.td-title__span').innerText = value2;
+
+    newLanguageTr.querySelector('.li-remove').onclick = (e) => {
+      e.target.closest('td').parentNode.remove();
+      e.target.closest('td').parentNode.style.display = 'none';
+    };
+  }
+  if (value1 || value2) {
+    newLanguageTrFilled = true;
+  }
+}
+
+editResume.addEventListener('click', showLanguagePencil);
+
+function showLanguagePencil() {
+  if (resumeEdited) {
+    if (newLanguageTr) {
+      newLanguageTr.querySelector('.pencil').classList.remove('initial-hide');
+      newLanguageTr.querySelector('.li-remove').classList.remove('initial-hide');
+    }
+  }
+}
+/***************Конец Добавить язык*****************/
+
+
+/**************Редактировать язык********************/
+const editLanguagePopup = document.querySelector('.edit-language__popup');
+const editLanguagePopupHide = document.querySelector('.edit-language__popup-hide');
+const editLanguageSpeack = document.querySelector('#edit-language__speack');
+const editLanguageLevel = document.querySelector('#edit-language__level');
+const editLanguagePencils = pretendentCardLanguage.querySelectorAll('.pencil');
+let targLanguage;
+
+for (let item of editLanguagePencils) {
+  item.addEventListener('click', editLanguage);
+}
+
+function editLanguage(e) {
+  editLanguagePopup.classList.remove('hide-block');
+  targLanguage = e.target.closest('tr');
+  editLanguageSpeack.value = targLanguage.querySelector('.td-left').innerText;
+  editLanguageLevel.value = targLanguage.querySelector('.td-title__span').innerText;
+}
+
+editLanguagePopupHide.onclick = closeEditLanguagePopup;
+
+//если нажать мимо, то закрыть popup
+window.addEventListener('click', close_twelwe);
+
+function close_twelwe(e) {
+  if (!e.target.classList.contains('pencil')) {
+
+    //найти координаты popup
+    popupRect = editLanguagePopup.getBoundingClientRect();
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (eX < popupRect.left || eX > popupRect.right ||
+      eY < popupRect.top || eY > popupRect.bottom) {
+      closeEditLanguagePopup();
+    }
+  }
+}
+
+function closeEditLanguagePopup() {
+  if (targLanguage) {
+    targLanguage.querySelector('.td-left').innerText = editLanguageSpeack.value;
+    targLanguage.querySelector('.td-title__span').innerText = editLanguageLevel.value;
+  }
+
+  editLanguagePopup.classList.add('hide-block');
+}
+/**************Конец редактировать язык*****************/

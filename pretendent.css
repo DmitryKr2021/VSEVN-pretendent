@@ -15,6 +15,7 @@ body {
   --vacansion-dark: #142542;
   --vacansion-light: #435269;
   --edit-resume: #fbe97d;
+  --edit-resumetext: #e3c205;
 }
 
 
@@ -383,11 +384,11 @@ html {
 }
 
 .header-left {
-  flex-basis: 75%;
+  flex-basis: 65%;
 }
 
 .header-leftwrap {
-  padding-right: 200px;
+  padding-right: 50px;
 }
 
 .pretendent-card__name {
@@ -407,6 +408,14 @@ html {
   letter-spacing: 0.3px;
   font-weight: 500;
   margin-bottom: 7px;
+}
+
+.pretendent-card__subtitle {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  color: #999999;
+  font-weight: normal;
 }
 
 .window__date {
@@ -462,6 +471,14 @@ html {
   background-color: var(--bg-yellow);
 }
 
+.pretendent-card__header ._btn--border.active {
+  background-color: var(--bg-yellow);
+}
+
+.pretendent-card__header ._btn--border.active:hover {
+  background-color: #fff;
+}
+
 .pretendent-card__header .window__btn:nth-child(3) {
   background-color: #5ab8f7;
 }
@@ -474,14 +491,14 @@ html {
 }
 
 .header-right {
-  flex-basis: 25%;
+  flex-basis: 35%;
 }
 
 .header-right .window__fork {
-  font-size: 25px;
+  font-size: 34px;
   font-weight: 500;
   text-align: left;
-  margin-top: 75px;
+  margin-top: 70px;
 }
 
 .pretendent-card__resume {
@@ -516,24 +533,107 @@ html {
 }
 
 button.edit {
-  color: var(--edit-resume);
+  color: var(--edit-resumetext);
   border: none;
   font-size: 18px;
-  border-bottom: 1px dotted var(--edit-resume);
+  border-bottom: 1px dotted var(--edit-resumetext);
 }
 
 .resume-main__info {
+  position: relative;
   flex-basis: 48%;
   margin-left: 5px;
+  padding-left: 20px;
+  color: #999;
 }
+
+.scorpio {
+  padding-left: 20px;
+  background: url(img/scorpio.png) no-repeat 0 5px;
+  background-size: 15px;
+}
+
+/***********Popup для редактирования resume*********/
+.resume-main__popup {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  padding-bottom: 20px;
+  width: 85%;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
+}
+
+.popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.resume-main__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.resume-main__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.resume-main__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.resume-main__popup-adv.input {
+  color: transparent;
+}
+
+.resume-main__popup-input {
+  position: relative;
+}
+
+#resume-main__popup-input {
+  margin-top: 10px;
+  width: 97%;
+  height: 40px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 5px;
+}
+
+.for__popup-input {
+  position: absolute;
+  font-size: 22px;
+  top: 22px;
+  left: 10px;
+  transition: 0.3s;
+}
+
+#resume-main__popup-input:focus+.for__popup-input {
+  font-size: 18px;
+  top: 10px;
+  color: #333;
+}
+
+#resume-main__popup-input.ok {
+  border: 1px solid #619f00;
+}
+
+#resume-main__popup-input.no-input {
+  border: 1px solid var(--bg-red);
+}
+
+/********Конец popup для редактирования resume******/
 
 .resume-main__contacts {
   flex-basis: 26%;
-}
-
-.resume-main__info {
-  padding-left: 20px;
-  color: #999;
 }
 
 .info-wrap p {
@@ -543,14 +643,17 @@ button.edit {
   margin-bottom: 0;
 }
 
-.edit-info {
-  padding-left: 20px;
+.pencil {
+  width: 17px;
+  height: 20px;
+  border-color: transparent;
+  margin-right: 5px;
   background: url(img/pencil.svg) no-repeat;
   background-size: 15px;
   background-position: 0 3px;
 }
 
-.info-wrap.contacts p span {
+.info-wrap.contacts p .span2 {
   color: #222;
 }
 
@@ -637,9 +740,22 @@ button.edit {
 
 .contacts-wrap__edit input {
   padding: 10px;
-  text-align: center;
   border: 1px solid var(--bg-red);
   border-radius: 3px;
+  outline: none;
+}
+
+.edit-tel:focus {
+  padding: 10px;
+}
+
+.edit-mail:focus {
+  padding: 10px;
+}
+
+.edit-tel.ok,
+.edit-mail.ok {
+  border: 1px solid #619f00;
 }
 
 .contacts-wrap__edit .edit-contact {
@@ -743,6 +859,7 @@ button.edit {
   width: 170px;
   height: 90px;
   display: none;
+  z-index: 20;
 }
 
 .resume__buttons-choose .choose-wrap {
@@ -811,6 +928,7 @@ button.edit {
 }
 
 .pretendent-card__adress {
+  position: relative;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -845,7 +963,91 @@ button.edit {
   margin-bottom: 15px;
 }
 
+/***********Popup для редактирования adress*********/
+.adress__popup {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 15px;
+  padding-bottom: 20px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
+}
+
+.adress__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.adress__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.adress__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.adress__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.adress__popup-adv.input {
+  color: transparent;
+}
+
+.adress__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+#adress__popup-input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+}
+
+.for__adress_popup-input {
+  position: absolute;
+  font-size: 22px;
+  color: #999;
+  top: 21px;
+  left: 10px;
+  transition: 0.3s;
+}
+
+#adress__popup-input:focus+.for__adress_popup-input {
+  font-size: 18px;
+  top: 10px;
+  color: #333;
+}
+
+#adress__popup-input.ok {
+  border: 1px solid #619f00;
+}
+
+#adress__popup-input.no-input {
+  border: 1px solid var(--bg-red);
+}
+
+/********Конец popup для редактирования adress******/
+
 .skills__wrap {
+  position: relative;
   margin-top: 4px;
   padding-bottom: 20px;
 }
@@ -858,7 +1060,76 @@ button.edit {
   padding-bottom: 35px;
 }
 
+/***********Popup для редактирования общих навыков*********/
+.skills__popup {
+  position: absolute;
+  top: -20px;
+  padding: 15px;
+  padding-bottom: 25px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
+}
+
+.skills__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.skills__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.skills__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.skills__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.skills__popup-adv.input {
+  color: transparent;
+}
+
+.skills__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+#skills__popup-input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+#skills__popup-input.ok {
+  border: 1px solid #619f00;
+}
+
+#skills__popup-input.no-input {
+  border: 1px solid var(--bg-red);
+}
+
+/********Конец popup для редактирования общих навыков******/
+
 .skills__wrap-keys {
+  position: relative;
   padding-top: 27px;
   padding-bottom: 20px;
 }
@@ -900,9 +1171,85 @@ button.edit {
   background-color: var(--edit-resume);
 }
 
+/***********Popup для редактирования ключевых навыков*********/
+.key-skills__popup {
+  position: absolute;
+  top: -20px;
+  padding: 15px;
+  padding-bottom: 25px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
+}
+
+.key-skills__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.key-skills__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.key-skills__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.key-skills__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.key-skills__popup-adv.input {
+  color: transparent;
+}
+
+.key-skills__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+#key-skills__popup-input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+#key-skills__popup-input.ok {
+  border: 1px solid #619f00;
+}
+
+#key-skills__popup-input.no-input {
+  border: 1px solid var(--bg-red);
+}
+
+/********Конец popup для редактирования ключевых навыков******/
+
+.skills__wrap-experience {
+  position: relative;
+}
+
 .experience__wrap {
   padding-top: 33px;
   border-top: 1px solid var(--border-color);
+}
+
+.experience__wrap-table {
+  width: 100%;
 }
 
 .experience__wrap caption {
@@ -945,7 +1292,6 @@ button.edit {
 
 .experience__wrap-table td:nth-child(2) {
   font-size: 18px;
-  padding-right: 30px;
 }
 
 .experience__wrap-table td .td-title {
@@ -966,12 +1312,6 @@ button.edit {
 
 .title-edit {
   margin-left: 10px;
-  transform: translateY(3px);
-  width: 20px;
-  height: 20px;
-  background: url(img/pencil.svg) no-repeat;
-  background-size: 15px;
-  background-position: 0 3px;
 }
 
 .title-edit-show {
@@ -986,6 +1326,7 @@ button.edit {
 }
 
 .experience__wrap-table .td-right .td-text {
+  margin-top: 10px;
   line-height: 133%;
 }
 
@@ -993,7 +1334,143 @@ button.edit {
   line-height: 140%;
 }
 
+/****************Добавить новое место работы ***************/
+.new-work__popup {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+}
+
+.new-work__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.new-work__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.new-work__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.new-work__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.new-work__popup-adv.input {
+  color: transparent;
+}
+
+.new-work__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+.new-work__popup-input input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+.new-work__popup-input.ok input {
+  border: 1px solid #619f00;
+}
+
+.new-work__popup-input.no-input input {
+  border: 1px solid var(--bg-red);
+}
+
+/*************Конец добавить новое место работы ************/
+
+
+/****************Редактировать место работы ***************/
+.edit-work__popup {
+  position: absolute;
+  top: 170px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+}
+
+.edit-work__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.edit-work__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.edit-work__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.edit-work__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.edit-work__popup-adv.input {
+  color: transparent;
+}
+
+.edit-work__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+.edit-work__popup-input input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+.edit-work__popup-input.ok input {
+  border: 1px solid #619f00;
+}
+
+.edit-work__popup-input.no-input input {
+  border: 1px solid var(--bg-red);
+}
+
+/*************Конец редактировать место работы ************/
+
 .pretendent-card__study {
+  position: relative;
   padding-top: 35px;
   padding-bottom: 5px;
   border-top: 1px solid var(--border-color);
@@ -1035,10 +1512,148 @@ button.edit {
   margin-bottom: 12px;
 }
 
+
+/****************Добавить образование ***************/
+.study__popup {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
+}
+
+.study__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.study__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.study__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.study__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.study__popup-adv.input {
+  color: transparent;
+}
+
+.study__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+.study__popup-input input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+.study__popup-input.ok input {
+  border: 1px solid #619f00;
+}
+
+.study__popup-input.no-input input {
+  border: 1px solid var(--bg-red);
+}
+
+/*************Конец добавить образование ************/
+
+
+/****************Редактировать образование ***************/
+.edit-study__popup {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
+}
+
+.edit-study__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.edit-study__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.edit-study__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.edit-study__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.edit-study__popup-adv.input {
+  color: transparent;
+}
+
+.edit-study__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+.edit-study__popup-input input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+.edit-study__popup-input.ok input {
+  border: 1px solid #619f00;
+}
+
+.edit-study__popup-input.no-input input {
+  border: 1px solid var(--bg-red);
+}
+
+/*************Конец pедактировать образование ************/
+
 .pretendent-card__courses {
+  position: relative;
   padding-top: 35px;
   padding-bottom: 5px;
-  border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -1077,43 +1692,333 @@ button.edit {
   margin-bottom: 12px;
 }
 
-.pretendent-card__language {
-  margin-top: 32px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--border-color);
+
+/************Добавить повышение квалификации, курсы ***********/
+.courses__popup {
+  position: absolute;
+  top: -320px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
 }
 
-.language__wrap-title {
-  font-size: 21px;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-  text-align: left;
-}
-
-.language__wrap-title button {
-  margin-left: 60px;
-}
-
-.language__wrap-text {
-  margin-top: 25px;
-  font-size: 20px;
-}
-
-.language__wrap-text span:nth-child(1) {
-  font-weight: 600;
-}
-
-.language__wrap-text span:nth-child(2) {
-  margin-left: 10px;
-}
-
-.language__wrap-text .li-remove {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--bg-red);
+.courses__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   border: none;
 }
 
+.courses__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.courses__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.courses__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.courses__popup-adv.input {
+  color: transparent;
+}
+
+.courses__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+.courses__popup-input input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+.courses__popup-input.ok input {
+  border: 1px solid #619f00;
+}
+
+.courses__popup-input.no-input input {
+  border: 1px solid var(--bg-red);
+}
+
+/*********Конец добавить повышение квалификации, курсы ********/
+
+
+/***********Редактировать повышение квалификации, курсы *********/
+.edit-courses__popup {
+  position: absolute;
+  top: -320px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
+}
+
+.edit-courses__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.edit-courses__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.edit-courses__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.edit-courses__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.edit-courses__popup-adv.input {
+  color: transparent;
+}
+
+.edit-courses__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+.edit-courses__popup-input input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+.edit-courses__popup-input.ok input {
+  border: 1px solid #619f00;
+}
+
+.edit-courses__popup-input.no-input input {
+  border: 1px solid var(--bg-red);
+}
+
+/*******Конец Редактировать повышение квалификации, курсы *****/
+
+.pretendent-card__language {
+  position: relative;
+  padding-top: 35px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.language__wrap-table {
+  width: 100%;
+}
+
+.language__wrap caption {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 22px;
+}
+
+.language__wrap caption button {
+  margin-left: 60px;
+}
+
+.language__wrap-table td:nth-child(1) {
+  width: 22%;
+  padding-right: 5px;
+  padding-left: 0;
+  font-size: 17px;
+  font-weight: 600;
+  vertical-align: top;
+}
+
+.language__wrap-table td:nth-child(2) {
+  width: 78%;
+  font-size: 18px;
+  padding-left: 8px;
+  padding-bottom: 20px;
+}
+
+.language__wrap-table td .td-title {
+  margin-bottom: 12px;
+}
+
+/*****************Добавить язык *****************/
+.language__popup {
+  position: absolute;
+  top: -250px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
+}
+
+.language__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.language__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.language__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.language__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.language__popup-adv.input {
+  color: transparent;
+}
+
+.language__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+.language__popup-input input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+.language__popup-input.ok input {
+  border: 1px solid #619f00;
+}
+
+.language__popup-input.no-input input {
+  border: 1px solid var(--bg-red);
+}
+
+/**************Конец добавить язык******************/
+
+/*****************Редактировать язык *****************/
+.edit-language__popup {
+  position: absolute;
+  top: -250px;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
+}
+
+.edit-language__popup-hide {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.edit-language__popup-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.edit-language__popup-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #999;
+}
+
+.edit-language__popup-adv.no-input {
+  color: var(--bg-red);
+}
+
+.edit-language__popup-adv.input {
+  color: transparent;
+}
+
+.edit-language__popup-input {
+  position: relative;
+  width: 100%;
+}
+
+.edit-language__popup-input input {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  padding-bottom: 15px;
+}
+
+.edit-language__popup-input.ok input {
+  border: 1px solid #619f00;
+}
+
+.edit-language__popup-input.no-input input {
+  border: 1px solid var(--bg-red);
+}
+
+/**************Конец Редактировать язык******************/
+
+
+
+
+
+
+
+
+
+
+/*
+Пока не надо
 .pretendent-card__interest {
   margin-top: 30px;
   padding-bottom: 48px;
@@ -1272,7 +2177,7 @@ button.edit {
   letter-spacing: -0.6px;
   border: 1px solid #333;
 }
-
+*/
 /**********Конец карточка соискателя*********/
 
 
