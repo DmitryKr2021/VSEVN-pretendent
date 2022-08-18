@@ -378,6 +378,7 @@ const infoPencils = resumeMainInfo.querySelectorAll('.pencil');
 const popupAdv = resumeMainInfo.querySelector('.popup-adv');
 const forPopupInput = resumeMainInfo.querySelector('.for__popup-input');
 const popupHide = document.querySelector('.popup-hide');
+const savePopups = document.querySelectorAll('.save-popup');
 let targ;
 let popupRect;
 
@@ -386,16 +387,16 @@ for (let pencil of infoPencils) {
 }
 
 function pencilClick(e) {
-  targ = e.target;
-  resumeMainPopup.classList.remove('hide-block');
-  resumeMainPopupInput.value = '';
-
-  let thisText = targ.nextElementSibling.innerText;
-  resumeMainPopupTitle.innerText = thisText.slice(0, thisText.length - 1);
-  popupAdv.innerText = thisText.toLowerCase();
-  forPopupInput.innerText = thisText.slice(0, thisText.length - 1);
+  if (!e.target.classList.contains('pencil-non') && !e.target.classList.contains('pencil-select') && !e.target.classList.contains('pencil-date')) {
+    targ = e.target;
+    resumeMainPopup.classList.remove('hide-block');
+    resumeMainPopupInput.value = '';
+    let thisText = targ.closest('div').nextElementSibling.querySelector('.span1').innerText;
+    resumeMainPopupTitle.innerText = thisText.slice(0, thisText.length - 1);
+    popupAdv.innerText = thisText.toLowerCase();
+    forPopupInput.innerText = thisText.slice(0, thisText.length - 1);
+  }
 }
-
 resumeMainPopupInput.onfocus = function () {
   this.classList.add('ok');
   this.classList.remove('no-input');
@@ -410,7 +411,7 @@ resumeMainPopupInput.onblur = function () {
     this.classList.add('ok');
     forPopupInput.innerText = '';
     resumeMainPopupAdv.classList.add('input');
-    targ.nextElementSibling.nextElementSibling.innerText = this.value;
+    targ.parentNode.nextElementSibling.querySelector('.span2').innerText = this.value;
   }
 };
 //если нажать мимо, то закрыть popup
@@ -438,7 +439,211 @@ function closePopup(e) {
   resumeMainPopupAdv.classList.remove('no-input');
   resumeMainPopupAdv.classList.remove('input');
 }
+
+//Нажать на кнопку Сохранить
+for (let item of savePopups) {
+  item.addEventListener('click', doSavePopup);
+}
+
+function doSavePopup(e) {
+  closePopup(e);
+}
 /**************Конец редактирование резюме******** */
+
+
+/**************Селекты для резюме****************/
+const pencilSelects = document.querySelectorAll('.pencil-select');
+const resumeMainSelects = document.querySelectorAll('.resume-main__select');
+const divSelectUlItems = document.querySelectorAll('.div-select__ul-item');
+const saveSelects = document.querySelectorAll('.save-select');
+const selectHides = document.querySelectorAll('.select-hide');
+let targSelect;
+let targSelectInput;
+let selectRect;
+
+for (let item of pencilSelects) {
+  item.addEventListener('click', handleClick);
+}
+
+function handleClick(e) {
+  targSelect = e.target.parentNode.nextElementSibling.querySelector('.span2');
+  let dataSelect = e.target.getAttribute('data-select');
+  for (let item of resumeMainSelects) {
+    if (item.getAttribute('data-select') == dataSelect) {
+      item.classList.remove('hide-block');
+    }
+    item.querySelector('input').value = targSelect.innerText;
+  }
+}
+
+for (let item of divSelectUlItems) {
+  item.addEventListener('click', doSelect);
+}
+
+function doSelect(e) {
+  targSelectInput = e.target.closest('.resume-main__select').querySelector('input');
+  targSelectInput.value = e.target.innerText;
+  targSelectInput.style.paddingLeft = 15 + 'px';
+}
+
+//если нажать мимо, то закрыть select-popup
+window.addEventListener('click', close_selectOne);
+
+function close_selectOne(e) {
+  if (!e.target.classList.contains('pencil-resume')) {
+    //найти координаты select-popup
+    for (let item of resumeMainSelects) {
+      if (!item.classList.contains('hide-block')) {
+        selectRect = item.getBoundingClientRect();
+      }
+    }
+    let eX = e.clientX;
+    let eY = e.clientY;
+    if (selectRect) {
+      if (eX < selectRect.left || eX > selectRect.right ||
+        eY < selectRect.top || eY > selectRect.bottom) {
+        closeSelect();
+        saveSelect();
+      }
+    }
+  }
+}
+
+for (let item of saveSelects) {
+  item.addEventListener('click', close_and_save);
+}
+for (let item of selectHides) {
+  item.addEventListener('click', close_and_save);
+}
+
+function close_and_save(e) {
+  closeSelect(e);
+  saveSelect(e);
+}
+
+function closeSelect(e) {
+  for (let item of resumeMainSelects) {
+    if (!item.classList.contains('hide-block')) {
+      item.classList.add('hide-block');
+    }
+  }
+  /*resumeMainPopupInput.classList.remove('no-input');
+  resumeMainPopupInput.classList.remove('ok');
+  resumeMainPopupAdv.classList.remove('no-input');
+  resumeMainPopupAdv.classList.remove('input');*/
+}
+
+function saveSelect(e) {
+  if (targSelectInput.value) {
+    targSelect.innerText = targSelectInput.value;
+  }
+}
+/******Наличие детей******/
+const pencilChild = document.querySelector('.pencil-child');
+const childrenYes = document.querySelector('.children-yes');
+const childrenNo = document.querySelector('.children-no');
+const childTemplate = document.querySelector('.child-template');
+const plusChilds = document.querySelectorAll('.plus-child');
+const minusChilds = document.querySelectorAll('.minus-child');
+const addChildren = document.querySelector('.add-children');
+let addChildrenItems = document.querySelectorAll('.add-children__item');
+const saveChild = document.querySelector('.save-child');
+const family = document.querySelector('.family');
+const familyInput = document.querySelector('.family-input');
+let haveChild = false;
+let childString = 'Да';
+let ageArr = [];
+
+pencilChild.onclick = () => {
+  childrenNo.classList.remove('hide-block');
+  addChildren.classList.add('hide-block');
+};
+
+childrenYes.onclick = (e) => {
+  childrenNo.classList.add('hide-block');
+  haveChild = true;
+  addChildren.classList.remove('hide-block');
+  childString = 'Да, 1 год';
+  familyInput.value = childString;
+};
+
+childrenNo.onclick = () => {
+  haveChild = false;
+};
+
+for (let item of plusChilds) {
+  item.addEventListener('click', addChild);
+}
+for (let item of minusChilds) {
+  item.addEventListener('click', removeChild);
+}
+
+function addChild(e) {
+  const newChild = document.createElement('li');
+  newChild.innerHTML = childTemplate.innerHTML;
+  newChild.classList.add('add-children__item');
+  addChildren.append(newChild);
+  newChild.querySelectorAll('button')[0].addEventListener('click', addChild);
+  newChild.querySelectorAll('button')[1].addEventListener('click',
+    removeChild);
+  addChildrenItems = document.querySelectorAll('.add-children__item');
+  addOnly();
+  newChild.querySelector('input').addEventListener('change', reNewChild);
+}
+
+function addOnly() {
+  let age = '1';
+  childString += ', ' + age + ' ' + chooseAgeFormat(age);
+  familyInput.value = childString;
+}
+
+function removeChild(e) {
+  e.target.closest('li').classList.add('removed');
+  e.target.closest('li').remove();
+  reNewChild();
+}
+
+for (let item of addChildrenItems) {
+  item.querySelector('input').addEventListener('change', reNewChild);
+}
+
+function reNewChild(e) {
+  ageArr = [];
+  childString = 'Да';
+  for (let item of addChildrenItems) {
+    if (!item.classList.contains('removed')) {
+      if (item.querySelector('input').value) {
+        ageArr.push(item.querySelector('input').value);
+      } else {
+        ageArr.push('1');
+      }
+    }
+  }
+  for (let age of ageArr) {
+    childString += ', ' + age + ' ' + chooseAgeFormat(age);
+  }
+  familyInput.value = childString;
+}
+
+function chooseAgeFormat(age) {
+  let res;
+  switch (age) {
+    case "1":
+      res = 'год';
+      break;
+    case "2":
+    case "3":
+    case "4":
+      res = "года";
+      break;
+    default:
+      res = "лет";
+  }
+  return res;
+}
+
+/***Конец наличие детей***/
+/************Конец селекты для резюме*************/
 
 
 /************Редактирование адреса и общих навыков***********/

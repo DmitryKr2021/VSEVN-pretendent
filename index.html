@@ -861,6 +861,7 @@
               </button>
             </div><!--/window__buttons-row-->
           </div><!--/pretendent-card__header-->
+
           <div class="hr1"></div>
 
           <div class="pretendent-card__resume">
@@ -876,54 +877,211 @@
               </div>
               <div class="resume-main__info">
                 <div class="info-wrap contacts">
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">ФИО:</span> 
-                    <span class="span2">Петрова Марина Александровна</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Пол:</span> 
-                    <span class="span2">Женский</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Статус соискателя:</span> 
-                    <span class="span2">Работаю, но открыт для предложений</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Дата рождения:</span> 
-                    <span class="span2">08.03.1988</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Знак зодиака:</span> 
-                    <span class="span2 scorpio">Скорпион</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Возраст:</span> 
-                    <span class="span2">23 года</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Образование:</span> 
-                    <span class="span2">Высшее; Средне-специальное</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Семейное положение:</span> 
-                    <span class="span2">Замужем</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Регион/населенный пункт проживания:</span> 
-                    <span class="span2">Нижегородская область/<br>город Нижний Новгород</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Район проживания:</span> 
-                    <span class="span2">Сормовский</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Гражданство:</span> 
-                    <span class="span2">Россия, Испания</span>                     
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Опыт работы:</span> 
-                    <span class="span2">3 года</span>
-                  </p> 
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">График работы:</span> 
-                    <span class="span2">Удаленная работа</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Готовность к командировкам:</span> 
-                    <span class="span2">Иногда</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Переезд:</span> 
-                    <span class="span2">Невозможен</span>
-                  </p>
-                  <p><button class="pencil pencil-resume initial-hide"></button><span class="span1">Сфера деятельности:</span> 
-                    <span class="span2">Строительство</span>
-                  </p>                                    
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume initial-hide"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">ФИО:</span> 
+                      <span class="span2">&nbsp;Петрова Марина Александровна</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume pencil-select initial-hide" data-select="sex"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Пол:</span> 
+                      <span class="span2">&nbsp;Женский</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume pencil-select initial-hide" data-select="status"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Статус соискателя:</span> 
+                      <span class="span2">&nbsp;Работаю, но открыт для предложений</span>
+                    </div>                      
+                  </div>
+
+                  <div class="birth-date">
+                    <div class="div-btn">
+                      <button class="pencil pencil-date pencil-resume initial-hide"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Дата рождения:</span> 
+                      <span class="span2">&nbsp;<span class="span-date">08 марта 1988</span></span>
+                    </div>  
+
+                    <div class="calendarouts_wrapper hide-block">
+                      <span>от</span>
+                      <a id="calendar2_out">01 Апрель 2019</a> 
+                    </div>              
+                    <div class="calendarouts_wrapper hide-block">
+                      <span>до</span>
+                      <a id="calendar3_out">03 Апрель 2019</a>
+                    </div>          
+                    <div class="datetable_wrapper">
+                      <div class="datetable_container">
+                        <div class="datetable ">
+                          <input type="text" placeholder="Дата рождения">
+                            <table id="calendar2">
+                              <thead>
+                                <tr><td>‹</td><td colspan="5"></td><td>›</td></tr>
+                                <tr><td>‹</td><td colspan="5"></td><td>›</td></tr>
+                                <tr><td>Пн</td><td>Вт</td><td>Ср</td><td>Чт</td><td>Пт</td><td>Сб</td><td>Вс</td></tr>
+                                <tbody>
+                             </table>
+                            </div>          
+                            <div class="datetable hide-block">
+                              <input type="text" placeholder="До">
+                              <table id="calendar3">
+                                <thead>
+                                 <tr><td>‹<td colspan="5"><td>›
+                                 <tr><td>‹<td colspan="5"><td>›
+                                 <tr><td>Пн<td>Вт<td>Ср<td>Чт<td>Пт<td>Сб<td>Вс
+                                 <tbody>
+                              </table>
+                            </div>
+                      </div>
+                      <button>ПРИМЕНИТЬ</button>
+                    </div>
+                  </div><!--/birth-date-->
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-non pencil-resume initial-hide"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Знак зодиака:</span> 
+                      <span class="span2 scorpio">&nbsp;Скорпион</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-non pencil-resume initial-hide"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Возраст:</span> 
+                      <span class="span2">&nbsp;23 года</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-non pencil-resume initial-hide"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Образование:</span> 
+                      <span class="span2">&nbsp;Высшее; Средне-специальное</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume initial-hide"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Семейное положение:</span> 
+                      <span class="span2">&nbsp;Замужем</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume pencil-select pencil-child initial-hide" data-select="family"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Наличие детей:</span> 
+                      <span class="span2 family">&nbsp;Да, 9 лет и 7 лет</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume pencil-select initial-hide" data-select="region"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Регион/населенный пункт проживания:</span> 
+                      <span class="span2">&nbsp;Нижегородская область/<br>город Нижний Новгород</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume pencil-select initial-hide" data-select="district"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Район проживания:</span> 
+                      <span class="span2">&nbsp;Сормовский</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume pencil-select initial-hide" data-select="citizen"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Гражданство:</span> 
+                      <span class="span2">&nbsp;Россия, Испания</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-non pencil-resume initial-hide"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Опыт работы:</span> 
+                      <span class="span2">&nbsp;3 года</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume pencil-select initial-hide" data-select="shedule"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">График работы:</span> 
+                      <span class="span2">&nbsp;Удаленная работа</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume pencil-select initial-hide" data-select="ready"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Готовность к командировкам:</span> 
+                      <span class="span2">&nbsp;Иногда</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume pencil-select initial-hide" data-select="relocation"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Переезд:</span> 
+                      <span class="span2">&nbsp;Невозможен</span>
+                    </div>                      
+                  </div>
+
+                  <div>
+                    <div class="div-btn">
+                      <button class="pencil pencil-resume pencil-select initial-hide" data-select="work_sphere"></button>
+                    </div>
+                    <div class="div-span">
+                      <span class="span1">Сфера деятельности:</span> 
+                      <span class="span2">&nbsp;Строительство</span>
+                    </div>                      
+                  </div>
+                              
                 </div><!--/info-wrap-->
 
                 <div class="resume-main__popup hide-block">
@@ -938,7 +1096,214 @@
                     <input id="resume-main__popup-input" type="text">
                     <label class="for__popup-input" for="resume-main__popup-input">фио</label>
                   </div><!--/resume-main__popup-input-->
+                  <button class="save-popup">Сохранить</button>
                 </div><!--/resume-main__popup-->
+
+                        <!--Popup-selects-->              
+                <div class="resume-main__select hide-block" data-select="sex">
+                  <button class="select-hide">&#10006;</button>
+                  <div class="resume-main__select-title">
+                    Пол
+                  </div>
+                  <div class="resume-main__select-adv">
+                    Укажите пол:<span class="select-adv"></span>
+                  </div>
+                  <div class="resume-main__select-input">
+                    <input id="resume-main__select-input" type="text">  
+                    <div class="div-select">
+                      <ul class="div-select__ul">
+                        <li class="div-select__ul-item">Мужской</li>
+                        <li class="div-select__ul-item">Женский</li>
+                      </ul>
+                    </div>
+                  </div><!--/resume-main__select-input-->
+                  <button class="save-select">Сохранить</button>
+                </div><!--/resume-main__select-->
+
+                <div class="resume-main__select hide-block" data-select="family">
+                  <button class="select-hide">&#10006;</button>
+                  <div class="resume-main__select-title">
+                    Наличие детей
+                  </div>
+                  <div class="resume-main__select-adv">
+                    Укажите наличие детей:<span class="select-adv"></span>
+                  </div>
+                  <div class="resume-main__select-input">
+                    <input id="resume-main__select-input" type="text" class="family-input">  
+                    <div class="div-select">
+                      <ul class="div-select__ul">
+                        <li class="div-select__ul-item children-yes">Да</li>
+                        <ul class="add-children hide-block">
+                          <li class="add-children__item"><span>Укажите возраст ребенка</span><span class="child-age"><input type="number" min="1" max="16" placeholder="1" value="1"></span>
+                          <button class="plus-child">+</button>
+                          </li>
+                          <li class="hide-block child-template"><span>Укажите возраст ребенка</span><span class="child-age"><input type="number" min="1" max="16" placeholder="1"></span>
+                          <button class="plus-child">+</button>
+                          <button class="minus-child">-</button>
+                          </li>
+                        </ul>
+                        <li class="div-select__ul-item children-no">Нет</li>
+                      </ul>
+                    </div>
+                  </div><!--/resume-main__select-input-->
+                  <button class="save-select save-child">Сохранить</button>
+                </div><!--/resume-main__select-->
+
+                <div class="resume-main__select hide-block" data-select="status">
+                  <button class="select-hide">&#10006;</button>
+                  <div class="resume-main__select-title">
+                    Статус соискателя
+                  </div>
+                  <div class="resume-main__select-adv">
+                    Укажите статус:<span class="select-adv"></span>
+                  </div>
+                  <div class="resume-main__select-input">
+                    <input id="resume-main__select-input" type="text">  
+                    <div class="div-select">
+                      <ul class="div-select__ul">
+                        <li class="div-select__ul-item">Безработный/безработная</li>
+                        <li class="div-select__ul-item">Работаю, но активно ищу работу</li>
+                      </ul>
+                    </div>
+                  </div><!--/resume-main__select-input-->
+                  <button class="save-select">Сохранить</button>
+                </div><!--/resume-main__select-->
+
+                <div class="resume-main__select hide-block" data-select="shedule">
+                  <button class="select-hide">&#10006;</button>
+                  <div class="resume-main__select-title">
+                    График работы
+                  </div>
+                  <div class="resume-main__select-adv">
+                    Укажите график работы:<span class="select-adv"></span>
+                  </div>
+                  <div class="resume-main__select-input">
+                    <input id="resume-main__select-input" type="text">  
+                    <div class="div-select">
+                      <ul class="div-select__ul">
+                        <li class="div-select__ul-item">Удаленная работа</li>
+                        <li class="div-select__ul-item">Вахтовый метод</li>
+                        <li class="div-select__ul-item">Неполный день</li>
+                        <li class="div-select__ul-item">Полный день</li>
+                        <li class="div-select__ul-item">Свободный график</li>
+                        <li class="div-select__ul-item">Сменный график</li>
+                      </ul>
+                    </div>
+                  </div><!--/resume-main__select-input-->
+                  <button class="save-select">Сохранить</button>
+                </div><!--/resume-main__select-->
+
+                <div class="resume-main__select hide-block" data-select="ready">
+                  <button class="select-hide">&#10006;</button>
+                  <div class="resume-main__select-title">
+                    Готовность к командировкам
+                  </div>
+                  <div class="resume-main__select-adv">
+                    Укажите готовность к командировкам:<span class="select-adv"></span>
+                  </div>
+                  <div class="resume-main__select-input">
+                    <input id="resume-main__select-input" type="text">  
+                    <div class="div-select">
+                      <ul class="div-select__ul">
+                        <li class="div-select__ul-item">Иногда</li>
+                        <li class="div-select__ul-item">Всегда</li>
+                        <li class="div-select__ul-item">Никогда</li>
+                      </ul>
+                    </div>
+                  </div><!--/resume-main__select-input-->
+                  <button class="save-select">Сохранить</button>
+                </div><!--/resume-main__select-->
+
+                <div class="resume-main__select hide-block" data-select="relocation">
+                  <button class="select-hide">&#10006;</button>
+                  <div class="resume-main__select-title">
+                    Переезд
+                  </div>
+                  <div class="resume-main__select-adv">
+                    Укажите возможность переезда:<span class="select-adv"></span>
+                  </div>
+                  <div class="resume-main__select-input">
+                    <input id="resume-main__select-input" type="text">  
+                    <div class="div-select">
+                      <ul class="div-select__ul">
+                        <li class="div-select__ul-item">Невозможен</li>
+                        <li class="div-select__ul-item">Возможен</li>
+                      </ul>
+                    </div>
+                  </div><!--/resume-main__select-input-->
+                  <button class="save-select">Сохранить</button>
+                </div><!--/resume-main__select-->
+
+                <div class="resume-main__select hide-block" data-select="citizen">
+                  <button class="select-hide">&#10006;</button>
+                  <div class="resume-main__select-title">
+                    Гражданство
+                  </div>
+                  <div class="resume-main__select-adv">
+                    Укажите гражданство:<span class="select-adv"></span>
+                  </div>
+                  <div class="resume-main__select-input">
+                    <input id="resume-main__select-input" type="text">  
+                    <div class="div-select">
+                      <ul class="div-select__ul">
+                        <li class="div-select__ul-item">Россия</li>
+                        <li class="div-select__ul-item">Россия, Испания</li>
+                        <li class="div-select__ul-item">Россия, Сербия</li>
+                      </ul>
+                    </div>
+                  </div><!--/resume-main__select-input-->
+                  <button class="save-select">Сохранить</button>
+                </div><!--/resume-main__select-->
+
+                <div class="resume-main__select hide-block" data-select="region">
+                  <button class="select-hide">&#10006;</button>
+                  <div class="resume-main__select-title">
+                    Регион/населенный пункт проживания
+                  </div>
+                  <div class="resume-main__select-adv">
+                    Укажите регион/населенный пункт проживания:<span class="select-adv"></span>
+                  </div>
+                  <div class="resume-main__select-input">
+                    <input id="resume-main__select-input" type="text">  
+                    <div class="div-select">
+                      <ul class="div-select__ul">
+                        <li class="div-select__ul-item">Нижегородская область/город Нижний Новгород</li>
+                        <li class="div-select__ul-item">Нижегородская область/город Арзамас</li>
+                        <li class="div-select__ul-item">Нижегородская область/город Дзержинск</li>
+                        <li class="div-select__ul-item">Нижегородская область/город Саров</li>
+                      </ul>
+                    </div>
+                  </div><!--/resume-main__select-input-->
+                  <button class="save-select">Сохранить</button>
+                </div><!--/resume-main__select-->
+
+                <div class="resume-main__select hide-block" data-select="district">
+                  <button class="select-hide">&#10006;</button>
+                  <div class="resume-main__select-title">
+                    Район проживания
+                  </div>
+                  <div class="resume-main__select-adv">
+                    Укажите район проживания:<span class="select-adv"></span>
+                  </div>
+                  <div class="resume-main__select-input">
+                    <input id="resume-main__select-input" type="text">  
+                    <div class="div-select">
+                      <ul class="div-select__ul">
+                        <li class="div-select__ul-item">Автозаводский</li>
+                        <li class="div-select__ul-item">Канавинский</li>
+                        <li class="div-select__ul-item">Ленинский</li>
+                        <li class="div-select__ul-item">Московский</li>
+                        <li class="div-select__ul-item">Нижегородский</li>
+                        <li class="div-select__ul-item">Приокский</li>
+                        <li class="div-select__ul-item">Советский</li>
+                        <li class="div-select__ul-item">Сормовский</li>
+                      </ul>
+                    </div>
+                  </div><!--/resume-main__select-input-->
+                  <button class="save-select">Сохранить</button>
+                </div><!--/resume-main__select-->
+
+                     <!--/Popup-selects-->
 
               </div><!--/resume-main__info-->
 
@@ -1855,6 +2220,7 @@
   </footer>
 -->
 	<script src="pretendent.js"></script>
+  <script src='calendar.js'></script>
 
 </body>
 </html>

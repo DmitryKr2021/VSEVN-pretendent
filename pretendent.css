@@ -498,7 +498,7 @@ html {
   font-size: 34px;
   font-weight: 500;
   text-align: left;
-  margin-top: 70px;
+  margin-top: 67px;
 }
 
 .pretendent-card__resume {
@@ -540,10 +540,12 @@ button.edit {
 }
 
 .resume-main__info {
+  box-sizing: border-box;
   position: relative;
   flex-basis: 48%;
   margin-left: 5px;
   padding-left: 20px;
+  padding-right: 20px;
   color: #999;
 }
 
@@ -569,9 +571,16 @@ button.edit {
 
 .popup-hide {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  font-size: 25px;
+  top: -40px;
+  right: -20px;
   border: none;
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.popup-hide:hover {
+  color: var(--bg-red);
 }
 
 .resume-main__popup-title {
@@ -583,6 +592,7 @@ button.edit {
 .resume-main__popup-adv {
   margin-top: 10px;
   font-size: 20px;
+  padding-left: 10px;
 }
 
 .resume-main__popup-adv.no-input {
@@ -603,9 +613,9 @@ button.edit {
   height: 40px;
   font-size: 22px;
   border: 1px solid #999;
-  border-radius: 10px;
   outline: none;
   padding: 5px;
+  padding-left: 9px;
 }
 
 .for__popup-input {
@@ -630,13 +640,381 @@ button.edit {
   border: 1px solid var(--bg-red);
 }
 
+.save-popup {
+  margin-top: 15px;
+  margin-left: 50%;
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  padding: 5px 20px;
+  padding-bottom: 9px;
+  font-size: 18px;
+  color: #222;
+  border: 1px solid var(--bg-yellow);
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.save-popup:hover {
+  background-color: var(--bg-yellow);
+}
+
+/**********Календарь*********/
+.calendarouts_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.calendarouts_wrapper.hide-block {
+  display: none;
+}
+
+.datetable {
+  width: 340px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+}
+
+.datetable.hide-block {
+  display: none;
+}
+
+.datetable select {
+  border: 1px solid #fff;
+  outline: none;
+  appearance: none;
+  color: #665800;
+  display: flex;
+  text-align: center;
+  width: 60%;
+  margin: 0 auto;
+  padding: 0;
+  font-size: 19px;
+  cursor: pointer;
+  background: #fff;
+}
+
+.datetable select:hover {
+  text-decoration: underline;
+}
+
+.datetable option:checked {
+  background: #fff4ab;
+  color: #000;
+}
+
+.active_date {
+  background: #ffdd00 !important;
+}
+
+.datetable_wrapper {
+  top: 9px;
+  display: none;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  position: absolute;
+  right: -80px;
+  margin: 0 auto;
+  box-shadow: #333 0 0 20px;
+  z-index: 3;
+}
+
+.datetable_inp_wrappper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+}
+
+.datetable>input {
+  padding: 9px 9px;
+  outline: none;
+  border: 1px solid #ffffff;
+  color: #665800;
+  display: flex;
+  flex-grow: 1;
+  font-size: 20px;
+  text-align: center;
+}
+
+.datetable_wrapper button {
+  background: #fc1d00;
+  width: 100%;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding: 13px 0px;
+  cursor: pointer;
+}
+
+.datetable_wrapper button:hover {
+  background: #9f1200;
+}
+
+.datetable_container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #fff;
+  box-shadow: 0px 0px 0px 1px rgb(227 220 178) inset;
+}
+
+.datetable_active {
+  -moz-display: flex;
+  display: flex;
+}
+
+.datetable table {
+  width: 100%;
+  line-height: 1.2em;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 3px;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.datetable thead>tr {
+  color: #665800;
+  font-weight: 600;
+}
+
+.datetable table>thead>tr:nth-child(1) td:nth-child(2),
+.datetable table>thead>tr:nth-child(2) td:nth-child(2) {
+  border-left: none;
+  border-right: none;
+}
+
+.datetable table>thead>tr:nth-child(1) td:nth-child(1),
+.datetable table>thead>tr:nth-child(2) td:nth-child(1) {
+  border-right: none;
+  color: #7f7f7f !important;
+  padding: 4px 0px;
+}
+
+.datetable table>thead>tr:nth-child(1) td:nth-child(3),
+.datetable table>thead>tr:nth-child(2) td:nth-child(3) {
+  border-left: none;
+  color: #7f7f7f !important;
+}
+
+
+.datetable table thead tr:last-child {
+  font-size: small;
+}
+
+.datetable table thead tr:nth-child(1) td:nth-child(2) {
+  color: #665800;
+}
+
+.datetable table thead tr:nth-child(1) td:nth-child(1):hover,
+.datetable table thead tr:nth-child(1) td:nth-child(3):hover,
+.datetable table thead tr:nth-child(2) td:nth-child(1):hover,
+.datetable table thead tr:nth-child(2) td:nth-child(3):hover {
+  cursor: pointer;
+  user-select: none;
+
+}
+
+.datetable table tbody td {
+  color: #665800;
+  cursor: pointer;
+}
+
+.datetable table tbody td:hover {
+  background: #cfcfcf;
+}
+
+.datetable table td {
+  border: 1px solid #e3dcb2;
+  height: 32px;
+  font-size: 18px;
+}
+
+.havedate {
+  font-size: 19px !important;
+}
+
+.datetable table tbody td:nth-child(n+6),
+.datetable table .holiday {
+  color: #665800;
+}
+
+.datetable table tbody td.today {
+  background: rgb(220, 0, 0);
+  color: #fff;
+}
+
+/*******Конец календарь******/
 /********Конец popup для редактирования resume******/
+
+/**************Селекты для резюме****************/
+.resume-main__select {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  padding-bottom: 20px;
+  width: 85%;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: #333 0 0 20px;
+  z-index: 10;
+}
+
+.select-hide {
+  position: absolute;
+  font-size: 25px;
+  top: -40px;
+  right: -20px;
+  border: none;
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.select-hide:hover {
+  color: var(--bg-red);
+}
+
+.resume-main__select-title {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+}
+
+.resume-main__select-adv {
+  margin-top: 10px;
+  font-size: 20px;
+  padding-left: 15px;
+}
+
+.resume-main__select-adv.no-input {
+  color: var(--bg-red);
+}
+
+.resume-main__select-adv.input {
+  color: transparent;
+}
+
+.resume-main__select-input {
+  position: relative;
+}
+
+#resume-main__select-input {
+  box-sizing: border-box;
+  margin-top: 10px;
+  width: 100%;
+  height: 40px;
+  font-size: 22px;
+  border: 1px solid #999;
+  outline: none;
+  padding-bottom: 5px;
+  padding-left: 10px;
+}
+
+.div-select {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid var(--border-color);
+}
+
+.div-select__ul {
+  margin: 0;
+  padding-left: 0;
+}
+
+.div-select__ul-item {
+  padding: 5px;
+  padding-left: 14px;
+  font-size: 19px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.div-select__ul-item:hover {
+  color: #222;
+  background-color: var(--bg-yellow);
+}
+
+.save-select {
+  margin-top: 15px;
+  margin-left: 50%;
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  padding: 5px 20px;
+  padding-bottom: 9px;
+  font-size: 18px;
+  color: #222;
+  border: 1px solid var(--bg-yellow);
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.save-select:hover {
+  background-color: var(--bg-yellow);
+}
+
+/******Наличие детей******/
+.add-children {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  padding-left: 30px;
+}
+
+.add-children__item:not(:last-of-type) {
+  margin-bottom: 3px;
+}
+
+.child-age {
+  margin-left: 10px;
+}
+
+.child-age input {
+  border: 1px solid var(--bg-yellow);
+  outline: none;
+}
+
+.plus-child {
+  margin-left: 10px;
+}
+
+.add-children__item button {
+  width: 25px;
+  height: 25px;
+  border: 1px solid var(--bg-yellow);
+  box-sizing: border-box;
+  font-size: 30px;
+  vertical-align: top;
+  text-align: center;
+  border-radius: 3px;
+  padding: 0;
+  padding-bottom: 5px;
+  line-height: 50%;
+  transition: 0.3s;
+}
+
+.add-children__item button:hover {
+  background-color: var(--bg-yellow);
+  color: #222;
+}
+
+/***Конец наличие детей***/
+
+/************Конец селекты для резюме*************/
 
 .resume-main__contacts {
   flex-basis: 26%;
 }
 
-.info-wrap p {
+.info-wrap>div {
+  display: flex;
   font-size: 18px;
   line-height: 132%;
   margin-top: 0;
@@ -653,7 +1031,12 @@ button.edit {
   background-position: 0 3px;
 }
 
-.info-wrap.contacts p .span2 {
+.pencil-non {
+  background: none;
+  cursor: default;
+}
+
+.info-wrap.contacts .div-span .span2 {
   color: #222;
 }
 
@@ -827,13 +1210,23 @@ button.edit {
 }
 
 .resume__buttons-row .btn-favorite.pressed {
-  color: var(--bg-red);
+  color: #fff;
+  background-color: var(--bg-red);
   border: 1px solid var(--bg-red);
   padding-right: 26px;
 }
 
+.resume__buttons-row .btn-favorite.pressed:hover {
+  color: var(--bg-red);
+  background-color: #fff;
+}
+
 .resume__buttons-row .btn-favorite.pressed svg path {
-  fill: #ec0303;
+  fill: #fff;
+}
+
+.resume__buttons-row .btn-favorite.pressed:hover svg path {
+  fill: var(--bg-red);
 }
 
 .resume__buttons-row .btn-black {
