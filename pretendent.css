@@ -263,6 +263,8 @@ html {
 .bg-red {
   background-color: var(--bg-red);
   color: #fff;
+  padding-top: 12px;
+  padding-bottom: 14px;
 }
 
 .bg-red:hover {
@@ -449,7 +451,8 @@ html {
 }
 
 .pretendent-card__header .window__buttons-row button {
-  padding: 12px;
+  padding: 11px;
+  padding-bottom: 13px;
   padding-left: 20px;
   padding-right: 37px;
   font-size: 16px;
@@ -569,7 +572,7 @@ button.edit {
   z-index: 10;
 }
 
-.popup-hide {
+.all_popup-hide {
   position: absolute;
   font-size: 25px;
   top: -40px;
@@ -579,7 +582,7 @@ button.edit {
   transition: 0.3s;
 }
 
-.popup-hide:hover {
+.all_popup-hide:hover {
   color: var(--bg-red);
 }
 
@@ -727,7 +730,6 @@ button.edit {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-
 }
 
 .datetable>input {
@@ -1370,13 +1372,6 @@ button.edit {
   z-index: 10;
 }
 
-.adress__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
-}
-
 .adress__popup-title {
   color: #333;
   text-align: center;
@@ -1437,6 +1432,11 @@ button.edit {
   border: 1px solid var(--bg-red);
 }
 
+.adress__popup .save-popup {
+  padding: 6px 20px;
+  padding-bottom: 9px;
+}
+
 /********Конец popup для редактирования adress******/
 
 .skills__wrap {
@@ -1464,13 +1464,6 @@ button.edit {
   border-radius: 5px;
   box-shadow: #333 0 0 20px;
   z-index: 10;
-}
-
-.skills__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
 }
 
 .skills__popup-title {
@@ -1519,6 +1512,11 @@ button.edit {
   border: 1px solid var(--bg-red);
 }
 
+.skills__popup .save-popup {
+  padding: 6px 20px;
+  padding-bottom: 9px;
+}
+
 /********Конец popup для редактирования общих навыков******/
 
 .skills__wrap-keys {
@@ -1545,8 +1543,9 @@ button.edit {
 .keys-listitem {
   position: relative;
   font-size: 18px;
-  padding: 7px 14px;
   background-color: #efefef;
+  padding: 6px 14px;
+  padding-bottom: 8px;
 }
 
 .keys-listitem .li-remove {
@@ -1575,13 +1574,6 @@ button.edit {
   border-radius: 5px;
   box-shadow: #333 0 0 20px;
   z-index: 10;
-}
-
-.key-skills__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
 }
 
 .key-skills__popup-title {
@@ -1628,6 +1620,11 @@ button.edit {
 
 #key-skills__popup-input.no-input {
   border: 1px solid var(--bg-red);
+}
+
+.key-skills__popup .save-popup {
+  padding: 6px 20px;
+  padding-bottom: 9px;
 }
 
 /********Конец popup для редактирования ключевых навыков******/
@@ -1739,13 +1736,6 @@ button.edit {
   box-shadow: #333 0 0 20px;
 }
 
-.new-work__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
-}
-
 .new-work__popup-title {
   color: #333;
   text-align: center;
@@ -1805,13 +1795,6 @@ button.edit {
   padding: 20px;
   border-radius: 5px;
   box-shadow: #333 0 0 20px;
-}
-
-.edit-work__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
 }
 
 .edit-work__popup-title {
@@ -1919,13 +1902,6 @@ button.edit {
   z-index: 10;
 }
 
-.study__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
-}
-
 .study__popup-title {
   color: #333;
   text-align: center;
@@ -1986,13 +1962,6 @@ button.edit {
   border-radius: 5px;
   box-shadow: #333 0 0 20px;
   z-index: 10;
-}
-
-.edit-study__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
 }
 
 .edit-study__popup-title {
@@ -2099,13 +2068,6 @@ button.edit {
   z-index: 10;
 }
 
-.courses__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
-}
-
 .courses__popup-title {
   color: #333;
   text-align: center;
@@ -2166,13 +2128,6 @@ button.edit {
   border-radius: 5px;
   box-shadow: #333 0 0 20px;
   z-index: 10;
-}
-
-.edit-courses__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
 }
 
 .edit-courses__popup-title {
@@ -2278,13 +2233,6 @@ button.edit {
   z-index: 10;
 }
 
-.language__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
-}
-
 .language__popup-title {
   color: #333;
   text-align: center;
@@ -2344,13 +2292,6 @@ button.edit {
   border-radius: 5px;
   box-shadow: #333 0 0 20px;
   z-index: 10;
-}
-
-.edit-language__popup-hide {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
 }
 
 .edit-language__popup-title {
