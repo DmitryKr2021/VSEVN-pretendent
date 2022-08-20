@@ -49,6 +49,7 @@ const editTelPlaceholder = document.querySelector('.edit-tel').getAttribute("pla
 const editEmailPlaceholder = document.querySelector('.edit-mail').getAttribute("placeholder");
 let telOk = false;
 let EmailOk = false;
+let closeAll = false;
 
 const toEditResume = 'Отредактировать резюме';
 const toSaveResume = 'Сохранить изменения';
@@ -96,6 +97,9 @@ editResume.addEventListener('click', function () {
     resumeEdited = !resumeEdited;
 
   } else { //закончить редактирование и сохранить
+    closeAll = true;
+    closeEditWorkPopup();
+
     if (telOk && EmailOk) {
       this.querySelector('span').innerHTML = toEditResume;
       this.classList.remove('active');
@@ -387,6 +391,14 @@ for (let pencil of infoPencils) {
 }
 
 function pencilClick(e) {
+  /*Спрятать все попапы */
+  resumeMainPopup.classList.add('hide-block');
+  for (let item of resumeMainSelects) {
+    item.classList.add('hide-block');
+  }
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active');
+  /* */
+
   if (!e.target.classList.contains('pencil-non') && !e.target.classList.contains('pencil-select') && !e.target.classList.contains('pencil-date')) {
     targ = e.target;
     resumeMainPopup.classList.remove('hide-block');
@@ -397,6 +409,7 @@ function pencilClick(e) {
     forPopupInput.innerText = thisText.slice(0, thisText.length - 1);
   }
 }
+
 resumeMainPopupInput.onfocus = function () {
   this.classList.add('ok');
   this.classList.remove('no-input');
@@ -409,7 +422,7 @@ resumeMainPopupInput.onblur = function () {
   } else { //введено значение
     this.classList.remove('no-input');
     this.classList.add('ok');
-    forPopupInput.innerText = '';
+    //forPopupInput.innerText = '';
     resumeMainPopupAdv.classList.add('input');
     targ.parentNode.nextElementSibling.querySelector('.span2').innerText = this.value;
   }
@@ -425,6 +438,7 @@ function close_one(e) {
     let eY = e.clientY;
     if (eX < popupRect.left || eX > popupRect.right ||
       eY < popupRect.top || eY > popupRect.bottom) {
+      resumeMainPopup.classList.add('hide-block');
       closePopup();
     }
   }
@@ -433,6 +447,9 @@ function close_one(e) {
 popupHide.onclick = closePopup;
 
 function closePopup(e) {
+  if (e.target.closest('div')) {
+    e.target.closest('div').classList.add('hide-block');
+  }
   resumeMainPopup.classList.add('hide-block');
   resumeMainPopupInput.classList.remove('no-input');
   resumeMainPopupInput.classList.remove('ok');
@@ -466,6 +483,7 @@ for (let item of pencilSelects) {
 }
 
 function handleClick(e) {
+  resumeMainPopup.classList.add('hide-block');
   targSelect = e.target.parentNode.nextElementSibling.querySelector('.span2');
   let dataSelect = e.target.getAttribute('data-select');
   for (let item of resumeMainSelects) {
@@ -527,10 +545,6 @@ function closeSelect(e) {
       item.classList.add('hide-block');
     }
   }
-  /*resumeMainPopupInput.classList.remove('no-input');
-  resumeMainPopupInput.classList.remove('ok');
-  resumeMainPopupAdv.classList.remove('no-input');
-  resumeMainPopupAdv.classList.remove('input');*/
 }
 
 function saveSelect(e) {
@@ -656,6 +670,7 @@ const adressPopupAdv = document.querySelector('.adress__popup-adv');
 const forAdressPopupInput = document.querySelector('.for__adress_popup-input');
 
 pencilAdress.onclick = (e) => {
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
   adressPopup.classList.remove('hide-block');
   targ = e.target;
   adressPopupInput.value = '';
@@ -677,8 +692,8 @@ adressPopupInput.onblur = function (e) {
   } else { //введено значение
     this.classList.remove('no-input');
     this.classList.add('ok');
-    forAdressPopupInput.innerText = '';
-    adressPopupAdv.classList.add('input');
+    //forAdressPopupInput.innerText = '';
+    //adressPopupAdv.classList.add('input');
     pretendentAdress.innerText = this.value;
   }
 };
@@ -713,6 +728,7 @@ const skillsPopupInput = document.querySelector('#skills__popup-input');
 const skillsPopupAdv = document.querySelector('.skills__popup-adv');
 
 pencilSkills.onclick = (e) => {
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
   skillsPopup.classList.remove('hide-block');
   targ = e.target;
   skillsPopupInput.value = '';
@@ -779,6 +795,7 @@ function removeLi(e) { //удалить навык
 }
 
 addKeySkill.onclick = () => { //добавить навык
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
   keySkillsPopup.classList.remove('hide-block');
   newLi = document.createElement('li');
   newLi.innerHTML = template01;
@@ -875,6 +892,7 @@ let newTr;
 let newTrFilled = false; //ни одно поле не заполнено
 
 addNewWork.onclick = function () {
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
   newWorkPopup.classList.remove('hide-block');
 
   newTr = document.createElement('tr');
@@ -988,18 +1006,24 @@ const editWorkCompany = document.querySelector('#edit-work__company');
 const editWorkDuty = document.querySelector('#edit-work__duty');
 const editWorkPencils = skillsWrapExperience.querySelectorAll('.pencil');
 let targTR;
+let oneString;
+let tdTitleHTML;
 
 for (let item of editWorkPencils) {
   item.addEventListener('click', editWork);
 }
 
 function editWork(e) {
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
+  editStudyPopup.classList.add('hide-block');
+  editCoursesPopup.classList.add('hide-block');
+  editLanguagePopup.classList.add('hide-block');
   editWorkPopup.classList.remove('hide-block');
   targTR = e.target.closest('tr');
-  let oneString = targTR.querySelectorAll('.td-title')[1].innerText;
+  oneString = targTR.querySelectorAll('.td-title')[1].innerText;
   editWorkDuration.value = targTR.querySelectorAll('.td-title')[0].innerText;
   editWorkDate.value = targTR.querySelectorAll('.td-text')[0].innerText;
-  editWorkCompany.value = oneString.slice(0, oneString.length - 2);
+  editWorkCompany.value = oneString.slice(0, oneString.length - 2) + '  ';
   editWorkDuty.value = targTR.querySelectorAll('.td-text')[1].innerText;
 }
 
@@ -1023,11 +1047,39 @@ function close_six(e) {
 }
 
 function closeEditWorkPopup() {
+
   if (targTR) {
     targTR.querySelectorAll('.td-title')[0].innerText = editWorkDuration.value;
     targTR.querySelectorAll('.td-text')[0].innerText = editWorkDate.value;
-    targTR.querySelectorAll('.td-title')[1].innerText = editWorkCompany.value;
+
+    targTR.querySelectorAll('.td-title')[1].innerHTML = '';
+    let span1 = document.createElement('span');
+    targTR.querySelectorAll('.td-title')[1].prepend(span1);
+    span1.classList.add('td-title__span');
+    span1.innerText = editWorkCompany.value;
+
+    let span2 = document.createElement('span');
+    targTR.querySelectorAll('.td-title')[1].append(span2);
+    span2.classList.add('title-edit');
+    let btn1 = document.createElement('button');
+    btn1.classList.add('pencil');
+    btn1.addEventListener('click', editWork);
+    span2.prepend(btn1);
+    let btn2 = document.createElement('button');
+    btn2.classList.add('li-remove');
+    btn2.style.marginLeft = 4 + 'px';
+    btn2.innerHTML = '&#10006;';
+    span2.after(btn2);
+    btn2.addEventListener('click', function (e) {
+      targTR.remove();
+    });
+
     targTR.querySelectorAll('.td-text')[1].innerText = editWorkDuty.value;
+
+    if (closeAll) {
+      btn1.classList.add('hide-block');
+      btn2.classList.add('hide-block');
+    }
   }
 
   editWorkPopup.classList.add('hide-block');
@@ -1048,6 +1100,7 @@ let newStudyTr;
 let newStudyTrFilled = false; //ни одно поле не заполнено
 
 addNewStudy.onclick = function () {
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
   studyPopup.classList.remove('hide-block');
 
   newStudyTr = document.createElement('tr');
@@ -1146,6 +1199,10 @@ for (let item of editStudyPencils) {
 }
 
 function editStudy(e) {
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
+  editCoursesPopup.classList.add('hide-block');
+  editLanguagePopup.classList.add('hide-block');
+  editWorkPopup.classList.add('hide-block');
   editStudyPopup.classList.remove('hide-block');
   targStudy = e.target.closest('tr');
   editStudyType.value = targStudy.querySelector('.td-left').innerText;
@@ -1197,6 +1254,7 @@ let newCoursesTr;
 let newCoursesTrFilled = false; //ни одно поле не заполнено
 
 addNewCourses.onclick = function () {
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
   coursesPopup.classList.remove('hide-block');
 
   newCoursesTr = document.createElement('tr');
@@ -1293,6 +1351,10 @@ for (let item of editCoursesPencils) {
 }
 
 function editCourses(e) {
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
+  editStudyPopup.classList.add('hide-block');
+  editLanguagePopup.classList.add('hide-block');
+  editWorkPopup.classList.add('hide-block');
   editCoursesPopup.classList.remove('hide-block');
   targCourses = e.target.closest('tr');
   editCoursesType.value = targCourses.querySelector('.td-left').innerText;
@@ -1344,6 +1406,7 @@ let newLanguageTr;
 let newLanguageTrFilled = false; //ни одно поле не заполнено
 
 addNewLanguage.onclick = function () {
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
   languagePopup.classList.remove('hide-block');
 
   newLanguageTr = document.createElement('tr');
@@ -1437,6 +1500,10 @@ for (let item of editLanguagePencils) {
 }
 
 function editLanguage(e) {
+  document.querySelector('.datetable_wrapper').classList.remove('datetable_active'); //спрятать календарь
+  editStudyPopup.classList.add('hide-block');
+  editCoursesPopup.classList.add('hide-block');
+  editWorkPopup.classList.add('hide-block');
   editLanguagePopup.classList.remove('hide-block');
   targLanguage = e.target.closest('tr');
   editLanguageSpeack.value = targLanguage.querySelector('.td-left').innerText;

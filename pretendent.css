@@ -598,13 +598,13 @@ button.edit {
   padding-left: 10px;
 }
 
-.resume-main__popup-adv.no-input {
+/*.resume-main__popup-adv.no-input {
   color: var(--bg-red);
-}
+}*/
 
-.resume-main__popup-adv.input {
+/*.resume-main__popup-adv.input {
   color: transparent;
-}
+}*/
 
 .resume-main__popup-input {
   position: relative;
@@ -613,7 +613,8 @@ button.edit {
 #resume-main__popup-input {
   margin-top: 10px;
   width: 97%;
-  height: 40px;
+  /*height: 40px;*/
+  height: 45px;
   font-size: 22px;
   border: 1px solid #999;
   outline: none;
@@ -624,14 +625,16 @@ button.edit {
 .for__popup-input {
   position: absolute;
   font-size: 22px;
-  top: 22px;
+  /*top: 22px;*/
+  top: 26px;
   left: 10px;
   transition: 0.3s;
 }
 
+/*.label-up {*/
 #resume-main__popup-input:focus+.for__popup-input {
   font-size: 18px;
-  top: 10px;
+  top: 12px;
   color: #333;
 }
 
@@ -639,9 +642,9 @@ button.edit {
   border: 1px solid #619f00;
 }
 
-#resume-main__popup-input.no-input {
+/*#resume-main__popup-input.no-input {
   border: 1px solid var(--bg-red);
-}
+}*/
 
 .save-popup {
   margin-top: 15px;
@@ -895,9 +898,9 @@ button.edit {
   padding-left: 15px;
 }
 
-.resume-main__select-adv.no-input {
+/*.resume-main__select-adv.no-input {
   color: var(--bg-red);
-}
+}*/
 
 .resume-main__select-adv.input {
   color: transparent;
@@ -911,7 +914,8 @@ button.edit {
   box-sizing: border-box;
   margin-top: 10px;
   width: 100%;
-  height: 40px;
+  /*height: 40px;*/
+  height: 58px;
   font-size: 22px;
   border: 1px solid #999;
   outline: none;
@@ -1212,9 +1216,11 @@ button.edit {
 }
 
 .resume__buttons-row .btn-favorite.pressed {
-  color: #fff;
-  background-color: var(--bg-red);
+  /*color: #fff;
+  background-color: var(--bg-red);*/
   border: 1px solid var(--bg-red);
+  color: var(--bg-red);
+  background-color: var(--bg-yellow);
   padding-right: 26px;
 }
 
@@ -1224,7 +1230,8 @@ button.edit {
 }
 
 .resume__buttons-row .btn-favorite.pressed svg path {
-  fill: #fff;
+  /*fill: #fff;*/
+  fill: var(--bg-red);
 }
 
 .resume__buttons-row .btn-favorite.pressed:hover svg path {
@@ -1242,8 +1249,15 @@ button.edit {
   left: 10px;
 }
 
+.resume__buttons-row .btn-black.pressed {
+  background-color: var(--bg-red);
+  border: 1px solid var(--bg-red);
+  color: #fff;
+}
+
 .resume__buttons-row .btn-black.pressed svg path {
-  fill: #777;
+  /*fill: #777;*/
+  fill: #fff;
 }
 
 .resume__buttons-choose {
@@ -1388,9 +1402,9 @@ button.edit {
   color: var(--bg-red);
 }
 
-.adress__popup-adv.input {
+/*.adress__popup-adv.input {
   color: transparent;
-}
+}*/
 
 .adress__popup-input {
   position: relative;
@@ -1482,9 +1496,9 @@ button.edit {
   color: var(--bg-red);
 }
 
-.skills__popup-adv.input {
+/*.skills__popup-adv.input {
   color: transparent;
-}
+}*/
 
 .skills__popup-input {
   position: relative;
@@ -1795,6 +1809,7 @@ button.edit {
   padding: 20px;
   border-radius: 5px;
   box-shadow: #333 0 0 20px;
+  z-index: 10;
 }
 
 .edit-work__popup-title {
@@ -2342,14 +2357,47 @@ button.edit {
 
 /**************Конец Редактировать язык******************/
 
+.pretendent-card__addition {
+  position: relative;
+  padding-top: 35px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border-color);
+}
 
+.addition__wrap-table {
+  width: 100%;
+}
 
+.addition__wrap caption {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 22px;
+}
 
+.addition__wrap caption button {
+  margin-left: 60px;
+}
 
+.addition__wrap-table td:nth-child(1) {
+  width: 22%;
+  padding-right: 5px;
+  padding-left: 0;
+  font-size: 17px;
+  font-weight: 600;
+  vertical-align: top;
+}
 
+.addition__wrap-table td:nth-child(2) {
+  width: 78%;
+  font-size: 18px;
+  padding-left: 8px;
+  padding-bottom: 20px;
+}
 
-
-
+.addition__wrap-table td .td-title {
+  margin-bottom: 12px;
+}
 
 /*
 Пока не надо

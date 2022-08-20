@@ -11,7 +11,6 @@
      DNfirst = new Date(D.getFullYear(), D.getMonth(), 1).getDay(),
      calendar = '<tr>',
      monthNum = month;
-   //console.log(D.getMonth());
    month = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 
    if (DNfirst != 0) {
@@ -37,12 +36,64 @@
      calendar += '<td>&nbsp;';
    }
    document.querySelector('#' + id + ' tbody').innerHTML = calendar;
-   document.querySelector('#' + id + ' thead tr:nth-child(2) td:nth-child(2)').innerHTML = '<div><select class="CalendarSelectt"><option value="0">Январь</option><option value="1">Февраль</option><option value="2">Март</option><option value="3">Апрель</option><option value="4" selected>Май</option><option value="5">Июнь</option><option value="6">Июль</option><option value="7">Август</option><option value="8">Сентябрь</option><option value="9">Октябрь</option><option value="10">Ноябрь</option><option value="11">Декабрь</option></select></div>';
+   document.querySelector('#' + id + ' thead tr:nth-child(2) td:nth-child(2)').innerHTML =
+     `<div><select class="CalendarSelectt">
+   <option value="0">Январь</option>
+   <option value="1">Февраль</option>
+   <option value="2">Март</option>
+   <option value="3">Апрель</option>
+   <option value="4">Май</option>
+   <option value="5" selected>Июнь</option>
+   <option value="6">Июль</option>
+   <option value="7">Август</option>
+   <option value="8">Сентябрь</option>
+   <option value="9">Октябрь</option>
+   <option value="10">Ноябрь</option>
+   <option value="11">Декабрь</option>
+   </select></div>`;
 
-   document.querySelector('#' + id + ' thead td:nth-child(2)').innerHTML = '<div><select class="CalendarSelectt"><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2015">2015</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2020">2020</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option></select></div>';
+   document.querySelector('#' + id + ' thead td:nth-child(2)').innerHTML = `<div><select class="CalendarSelectt">
+   <option value="1990">1990</option>
+   <option value="1991">1991</option>
+   <option value="1992">1992</option>
+   <option value="1993">1993</option>
+   <option value="1994">1994</option>
+   <option value="1995">1995</option>
+   <option value="1996">1996</option>
+   <option value="1997">1997</option>
+   <option value="1998">1998</option>
+   <option value="1999">1999</option>
+   <option value="2000">2000</option>
+   <option value="2001">2001</option>
+   <option value="2002">2002</option>
+   <option value="2003">2003</option>
+   <option value="2004">2004</option>
+   <option value="2005">2005</option>
+   <option value="2006">2006</option>
+   <option value="2007">2007</option>
+   <option value="2008">2008</option>
+   <option value="2009">2009</option>
+   <option value="2010">2010</option>
+   <option value="2011">2011</option>
+   <option value="2012">2012</option>
+   <option value="2013">2013</option>
+   <option value="2015">2015</option>
+   <option value="2014">2014</option>
+   <option value="2015">2015</option>
+   <option value="2016">2016</option>
+   <option value="2017">2017</option>
+   <option value="2018">2018</option>
+   <option value="2020">2020</option>
+   <option value="2019">2019</option>
+   <option value="2020">2020</option>
+   <option value="2021">2021</option>
+   <option value="2022">2022</option>
+   <option value="2023">2023</option>
+   </select></div>`;
 
    let SelYear = document.querySelectorAll('#' + id + ' tr:nth-child(1) option');
    let SelMon = document.querySelectorAll('#' + id + ' tr:nth-child(2) option');
+
    for (let u = 0; u < SelMon.length; u++) {
      if (SelMon[u].hasAttribute('selected')) {
        SelMon[u].removeAttribute('selected');
@@ -77,7 +128,8 @@
    }
  }
 
- Calendar2("calendar2", new Date().getFullYear(), 3);
+ //Calendar2("calendar2", new Date().getFullYear(), 3);//так в оригинале
+ Calendar2("calendar2", new Date().getFullYear() - 30, new Date().getMonth()); //а так для вывода -30 лет назад
  calendar2Start();
 
  function calendar2Start() {
@@ -145,21 +197,11 @@
    calendar2Start();
  };
 
-
  // переключатель минус год
  document.querySelector(' #calendar2 thead tr:nth-child(1) td:nth-child(1)').onclick = function () {
 
    Calendar2("calendar2", parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year) - 1, document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month);
    calendar2Start();
-
-   //alert(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year);
-
-   /*if (document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year == 2010) {
-     alert('У вас нет в выбираемом периоде резюме соискателей');
-   } else {
-     Calendar2("calendar2", parseFloat(document.querySelector('#calendar2 thead td:nth-child(2)').dataset.year) - 1, document.querySelector('#calendar2 thead td:nth-child(2)').dataset.month);
-     calendar2Start();
-   }*/
  };
  // переключатель плюс год
  document.querySelector('#calendar2 thead tr:nth-child(1) td:nth-child(3) ').onclick = function () {
