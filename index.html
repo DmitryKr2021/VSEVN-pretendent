@@ -928,7 +928,13 @@
                     <div class="datetable_wrapper">
                       <div class="datetable_container">
                         <div class="datetable ">
-                          <input type="text" placeholder="Дата рождения">
+                          <input type="text" placeholder="дд.мм.гггг" data-mask="__.__.____" id="mydate" maxlength="10">
+                          <div class="uncorrect-year hide-block">
+                            Слишком поздний год
+                          </div>
+                          <div class="uncorrect-date hide-block">
+                            Введите дату в формате дд.мм.гггг или выберите в календаре
+                          </div>
                             <table id="calendar2">
                               <thead>
                                 <tr><td>‹</td><td colspan="5"></td><td>›</td></tr>
@@ -948,7 +954,7 @@
                               </table>
                             </div>
                       </div>
-                      <button>ПРИМЕНИТЬ</button>
+                      <button class="date-apply">ПРИМЕНИТЬ</button>
                     </div>
                   </div><!--/birth-date-->
 
@@ -1028,7 +1034,7 @@
                     </div>
                     <div class="div-span">
                       <span class="span1">Гражданство:</span> 
-                      <span class="span2">&nbsp;Россия, Испания</span>
+                      <span class="span2 citizen-list">&nbsp;Россия</span>
                     </div>                      
                   </div>
 
@@ -1041,7 +1047,7 @@
                       <span class="span2">&nbsp;3 года</span>
                     </div>                      
                   </div>
-
+                  
 <!--Пока не надо     
   
                   <div>
@@ -1088,7 +1094,7 @@
                 </div><!--/info-wrap-->
 
                 <div class="resume-main__popup hide-block">
-                  <button class="popup-hide all_popup-hide">&#10006;</button>
+                  <button class="popup-hide all_popup-hide">&#215;</button>
                   <div class="resume-main__popup-title">
                     Название popup
                   </div>
@@ -1104,7 +1110,7 @@
 
                         <!--Popup-selects-->              
                 <div class="resume-main__select hide-block" data-select="sex">
-                  <button class="select-hide">&#10006;</button>
+                  <button class="select-hide">&#215;</button>
                   <div class="resume-main__select-title">
                     Пол
                   </div>
@@ -1112,7 +1118,7 @@
                     Укажите пол:<span class="select-adv"></span>
                   </div>
                   <div class="resume-main__select-input">
-                    <input id="resume-main__select-input" type="text">  
+                    <input class="resume__select-input" type="text">  
                     <div class="div-select">
                       <ul class="div-select__ul">
                         <li class="div-select__ul-item">Мужской</li>
@@ -1124,7 +1130,7 @@
                 </div><!--/resume-main__select-->
 
                 <div class="resume-main__select hide-block" data-select="family">
-                  <button class="select-hide">&#10006;</button>
+                  <button class="select-hide">&#215;</button>
                   <div class="resume-main__select-title">
                     Наличие детей
                   </div>
@@ -1132,7 +1138,7 @@
                     Укажите наличие детей:<span class="select-adv"></span>
                   </div>
                   <div class="resume-main__select-input">
-                    <input id="resume-main__select-input" type="text" class="family-input">  
+                    <input class="resume__select-input" type="text" class="family-input">  
                     <div class="div-select">
                       <ul class="div-select__ul">
                         <li class="div-select__ul-item children-yes">Да</li>
@@ -1153,7 +1159,7 @@
                 </div><!--/resume-main__select-->
 
                 <div class="resume-main__select hide-block" data-select="status">
-                  <button class="select-hide">&#10006;</button>
+                  <button class="select-hide">&#215;</button>
                   <div class="resume-main__select-title">
                     Статус соискателя
                   </div>
@@ -1161,7 +1167,7 @@
                     Укажите статус:<span class="select-adv"></span>
                   </div>
                   <div class="resume-main__select-input">
-                    <input id="resume-main__select-input" type="text">  
+                    <input class="resume__select-input" type="text">  
                     <div class="div-select">
                       <ul class="div-select__ul">
                         <li class="div-select__ul-item">Безработный/безработная</li>
@@ -1185,7 +1191,7 @@
                     Укажите график работы:<span class="select-adv"></span>
                   </div>
                   <div class="resume-main__select-input">
-                    <input id="resume-main__select-input" type="text">  
+                    <input class="resume__select-input" type="text">  
                     <div class="div-select">
                       <ul class="div-select__ul">
                         <li class="div-select__ul-item">Удаленная работа</li>
@@ -1209,7 +1215,7 @@
                     Укажите готовность к командировкам:<span class="select-adv"></span>
                   </div>
                   <div class="resume-main__select-input">
-                    <input id="resume-main__select-input" type="text">  
+                    <input class="resume__select-input" type="text">  
                     <div class="div-select">
                       <ul class="div-select__ul">
                         <li class="div-select__ul-item">Иногда</li>
@@ -1230,7 +1236,7 @@
                     Укажите возможность переезда:<span class="select-adv"></span>
                   </div>
                   <div class="resume-main__select-input">
-                    <input id="resume-main__select-input" type="text">  
+                    <input class="resume__select-input" type="text">  
                     <div class="div-select">
                       <ul class="div-select__ul">
                         <li class="div-select__ul-item">Невозможен</li>
@@ -1251,7 +1257,7 @@
                     Укажите сферу деятельности:<span class="select-adv"></span>
                   </div>
                   <div class="resume-main__select-input">
-                    <input id="resume-main__select-input" type="text">  
+                    <input class="resume__select-input" type="text">  
                     <div class="div-select">
                       <ul class="div-select__ul">
                         <li class="div-select__ul-item">Строительство</li>
@@ -1265,29 +1271,37 @@
                 </div><!-/resume-main__select->
   -->
 
-                <div class="resume-main__select hide-block" data-select="citizen">
-                  <button class="select-hide">&#10006;</button>
+                <div class="resume-main__select hide-block citizen" data-select="citizen">
+                  <button class="select-hide">&#215;</button>
                   <div class="resume-main__select-title">
                     Гражданство
                   </div>
                   <div class="resume-main__select-adv">
                     Укажите гражданство:<span class="select-adv"></span>
                   </div>
-                  <div class="resume-main__select-input">
-                    <input id="resume-main__select-input" type="text">  
-                    <div class="div-select">
-                      <ul class="div-select__ul">
-                        <li class="div-select__ul-item">Россия</li>
-                        <li class="div-select__ul-item">Россия, Испания</li>
-                        <li class="div-select__ul-item">Россия, Сербия</li>
-                      </ul>
+                  <div class="resume-main__select-input citizen__input-wrap">
+                    <div class="citizen__input-container add">
+                      <div class="under-input">
+                        <span class="under-input__begin"></span>
+                        <span class="under-input__end"></span>
+                      </div>
+                      <textarea name="" class="citizen__input citizen__textarea" cols="30" rows="10" placeholder="&#8212;"></textarea>
+                      <button class="citizen__input-add add"><span>+</span></button>  
+                      <div class="hide-btn"></div>
                     </div>
+                      <button class="citizen__input-remove hide-block"><span>&#8211;</span><span>Удалить</span></button>   
+                   <div class="citizen__input-arrow add"></div>
+                   <div class="div-select citizen__select">
+                      <ul class="div-select__ul citizen__select-ul">
+                        
+                      </ul>
+                   </div>
                   </div><!--/resume-main__select-input-->
-                  <button class="save-select">Сохранить</button>
+                  <button class="save-select save-countries">Сохранить</button>
                 </div><!--/resume-main__select-->
 
                 <div class="resume-main__select hide-block" data-select="region">
-                  <button class="select-hide">&#10006;</button>
+                  <button class="select-hide">&#215;</button>
                   <div class="resume-main__select-title">
                     Регион/населенный пункт проживания
                   </div>
@@ -1295,7 +1309,7 @@
                     Укажите регион/населенный пункт проживания:<span class="select-adv"></span>
                   </div>
                   <div class="resume-main__select-input">
-                    <input id="resume-main__select-input" type="text">  
+                    <input class="resume__select-input" type="text">  
                     <div class="div-select">
                       <ul class="div-select__ul">
                         <li class="div-select__ul-item">Нижегородская область/город Нижний Новгород</li>
@@ -1309,7 +1323,7 @@
                 </div><!--/resume-main__select-->
 
                 <div class="resume-main__select hide-block" data-select="district">
-                  <button class="select-hide">&#10006;</button>
+                  <button class="select-hide">&#215;</button>
                   <div class="resume-main__select-title">
                     Район проживания
                   </div>
@@ -1317,7 +1331,7 @@
                     Укажите район проживания:<span class="select-adv"></span>
                   </div>
                   <div class="resume-main__select-input">
-                    <input id="resume-main__select-input" type="text">  
+                    <input class="resume__select-input" type="text">  
                     <div class="div-select">
                       <ul class="div-select__ul">
                         <li class="div-select__ul-item">Автозаводский</li>
@@ -1421,7 +1435,7 @@
              <!--/Редактировать адрес-->
             <div class="adress__popup hide-block">
               <div class="adress__popup-wrap">
-              <button class="adress__popup-hide all_popup-hide">&#10006;</button>
+              <button class="adress__popup-hide all_popup-hide">&#215;</button>
               <div class="adress__popup-title">
                 Адрес
               </div>
@@ -1449,7 +1463,7 @@
               <!--/Редактировать общие навыки-->
               <div class="skills__popup hide-block">
                <div class="skills__popup-wrap">
-               <button class="skills__popup-hide all_popup-hide">&#10006;</button>
+               <button class="skills__popup-hide all_popup-hide">&#215;</button>
                <div class="skills__popup-title">
                  Общие навыки
                </div>
@@ -1471,22 +1485,22 @@
                 <div class="keys-list">
                   <ul class="keys-listul">
                     <li class="keys-listitem"><span class="item-text">Первичная документация</span> 
-                      <button class="li-remove initial-hide">&#10006;</button>
+                      <button class="li-remove initial-hide">&#215;</button>
                     </li>
                     <li class="keys-listitem"><span class="item-text">Кассовые операции</span> 
-                      <button class="li-remove initial-hide">&#10006;</button>
+                      <button class="li-remove initial-hide">&#215;</button>
                     </li>
                     <li class="keys-listitem"><span class="item-text">Расчет заработной платы</span> 
-                      <button class="li-remove initial-hide">&#10006;</button>
+                      <button class="li-remove initial-hide">&#215;</button>
                     </li>
                     <li class="keys-listitem"><span class="item-text">Бухгалтерская отчетность</span> 
-                      <button class="li-remove initial-hide">&#10006;</button>
+                      <button class="li-remove initial-hide">&#215;</button>
                     </li>
                     <li class="keys-listitem"><span class="item-text">Годовой баланс</span> 
-                      <button class="li-remove initial-hide">&#10006;</button>
+                      <button class="li-remove initial-hide">&#215;</button>
                     </li>
                     <li class="keys-listitem"><span class="item-text">Налоговая отчетность</span> 
-                      <button class="li-remove initial-hide">&#10006;</button>
+                      <button class="li-remove initial-hide">&#215;</button>
                     </li>
                   </ul>
                   <button class="edit initial-hide add__key-skill">
@@ -1497,7 +1511,7 @@
               <!--/Добавить ключевой навык-->
               <div class="key-skills__popup hide-block">
                <div class="key-skills__popup-wrap">
-               <button class="key-skills__popup-hide all_popup-hide">&#10006;</button>
+               <button class="key-skills__popup-hide all_popup-hide">&#215;</button>
                <div class="key-skills__popup-title">
                  Ключевые навыки
                </div>
@@ -1536,7 +1550,7 @@
                           <div class="td-title">
                               <span class="td-title__span"> ОАО "Нижегородметропроект", Инженер-сметчик 2 категории</span>
                             <span class="title-edit initial-hide"><button class="pencil initial-hide"></button></span>
-                            <button class="li-remove initial-hide">&#10006;</button>
+                            <button class="li-remove initial-hide">&#215;</button>
                           </div>
                           <div class="td-text">
                             - Подсчет физических объемов по чертежам;<br>
@@ -1557,7 +1571,7 @@
                           <div class="td-title">
                             ООО "СК "Управление строительства-620", Инженер-сметчик 2 категории
                             <span class="title-edit initial-hide"><button class="pencil initial-hide"></button></span>
-                            <button class="li-remove initial-hide">&#10006;</button>
+                            <button class="li-remove initial-hide">&#215;</button>
                           </div>
                           <div class="td-text">
                             - Подсчет физических объемов по чертежам;<br>
@@ -1579,7 +1593,7 @@
                           <div class="td-title">
                             ООО "Строй-отряд НН", Инженер-сметчик
                             <span class="title-edit initial-hide"><button class="pencil initial-hide"></button></span>
-                            <button class="li-remove initial-hide">&#10006;</button>
+                            <button class="li-remove initial-hide">&#215;</button>
                           </div>
                           <div class="td-text">
               - Составление сметной документации на строительство теплотрасс, текущий ремонт зданий, благоустройство территории;<br>
@@ -1596,7 +1610,7 @@
                <!--/Добавить новое место работы-->
               <div class="new-work__popup hide-block">
                <div class="new-work__popup-wrap">
-               <button class="new-work__popup-hide all_popup-hide">&#10006;</button>
+               <button class="new-work__popup-hide all_popup-hide">&#215;</button>
                <div class="new-work__popup-title">
                 Новое место работы
                </div>
@@ -1635,7 +1649,7 @@
              <!--/Редактировать место работы-->
              <div class="edit-work__popup hide-block">
               <div class="edit-work__popup-wrap">
-                <button class="edit-work__popup-hide all_popup-hide">&#10006;</button>
+                <button class="edit-work__popup-hide all_popup-hide">&#215;</button>
                 <div class="edit-work__popup-title">
                   Редактировать место работы
                 </div>
@@ -1691,7 +1705,7 @@
                       <div class="td-title">
                         <span class="td-title__span">Год окончания: 2015</span> 
                         <span class="title-edit initial-hide"><button class="pencil initial-hide"></button></span>
-                        <button class="li-remove initial-hide">&#10006;</button>
+                        <button class="li-remove initial-hide">&#215;</button>
                       </div>
                       <div class="td-text">
                         Печатное производство, Печатник плоской печати
@@ -1706,7 +1720,7 @@
                       <div class="td-title">
                         <span class="td-title__span">Год окончания: 2019</span>
                         <span class="title-edit initial-hide"><button class="pencil initial-hide"></button></span>
-                        <button class="li-remove initial-hide">&#10006;</button>
+                        <button class="li-remove initial-hide">&#215;</button>
                       </div>
                       <div class="td-text">
                         Промышленное и гражданское строительство
@@ -1720,7 +1734,7 @@
               <!--Добавить образование-->
               <div class="study__popup hide-block">
                <div class="study__popup-wrap">
-               <button class="study__popup-hide all_popup-hide">&#10006;</button>
+               <button class="study__popup-hide all_popup-hide">&#215;</button>
                <div class="study__popup-title">
                 Добавить учебное заведение и специальность (квалификацию)
                </div>
@@ -1752,7 +1766,7 @@
               <!--Редактировать образование-->
               <div class="edit-study__popup hide-block">
                <div class="edit-study__popup-wrap">
-               <button class="edit-study__popup-hide all_popup-hide">&#10006;</button>
+               <button class="edit-study__popup-hide all_popup-hide">&#215;</button>
                <div class="edit-study__popup-title">
                 Редактировать заведение и специальность (квалификацию)
                </div>
@@ -1804,7 +1818,7 @@
                           Год окончания: 2019
                         </span>
                         <span class="title-edit initial-hide"><button class="pencil initial-hide"></button></span>
-                        <button class="li-remove initial-hide">&#10006;</button>
+                        <button class="li-remove initial-hide">&#215;</button>
                       </div>
                       <div class="td-text">
                         Парикмахерское искусство
@@ -1819,7 +1833,7 @@
                <!--Добавить Повышение квалификации, курсы-->
               <div class="courses__popup hide-block">
                <div class="courses__popup-wrap">
-               <button class="courses__popup-hide all_popup-hide">&#10006;</button>
+               <button class="courses__popup-hide all_popup-hide">&#215;</button>
                <div class="courses__popup-title">
                 Повышение квалификации, курсы
                </div>
@@ -1852,7 +1866,7 @@
                <!--Редактировать Повышение квалификации, курсы-->
               <div class="edit-courses__popup hide-block">
                <div class="edit-courses__popup-wrap">
-               <button class="edit-courses__popup-hide all_popup-hide all_">&#10006;</button>
+               <button class="edit-courses__popup-hide all_popup-hide all_">&#215;</button>
                <div class="edit-courses__popup-title">
                 Редактировать повышение квалификации, курсы
                </div>
@@ -1903,7 +1917,7 @@
                           Выше среднего
                         </span>
                         <span class="title-edit initial-hide"><button class="pencil initial-hide"></button></span>
-                        <button class="li-remove initial-hide">&#10006;</button>
+                        <button class="li-remove initial-hide">&#215;</button>
                       </div>
                     </td>
                   </tr>           
@@ -1915,7 +1929,7 @@
               <!--Добавить язык-->
               <div class="language__popup hide-block">
                <div class="language__popup-wrap">
-               <button class="language__popup-hide all_popup-hide">&#10006;</button>
+               <button class="language__popup-hide all_popup-hide">&#215;</button>
                <div class="language__popup-title">
                 Знания языков
                </div>
@@ -1940,7 +1954,7 @@
               <!--Редактировать язык-->
               <div class="edit-language__popup hide-block">
                <div class="edit-language__popup-wrap">
-               <button class="edit-language__popup-hide all_popup-hide">&#10006;</button>
+               <button class="edit-language__popup-hide all_popup-hide">&#215;</button>
                <div class="edit-language__popup-title">
                 Редактировать язык
                </div>

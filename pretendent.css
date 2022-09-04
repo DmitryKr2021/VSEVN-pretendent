@@ -574,8 +574,9 @@ button.edit {
 
 .all_popup-hide {
   position: absolute;
-  font-size: 25px;
-  top: -40px;
+  font-size: 40px;
+  font-weight: lighter;
+  top: -50px;
   right: -20px;
   border: none;
   background-color: transparent;
@@ -774,6 +775,32 @@ button.edit {
   display: flex;
 }
 
+.uncorrect-year {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  color: #000;
+  transform: translateX(-50%);
+  padding: 10px;
+  width: 270px;
+  text-align: center;
+  background-color: var(--bg-yellow);
+  box-shadow: 0px 0px 5px 5px #888;
+}
+
+.uncorrect-date {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  color: #000;
+  transform: translateX(-50%);
+  padding: 10px;
+  width: 270px;
+  text-align: center;
+  background-color: var(--bg-yellow);
+  box-shadow: 0px 0px 5px 5px #888;
+}
+
 .datetable table {
   width: 100%;
   line-height: 1.2em;
@@ -910,7 +937,9 @@ button.edit {
   position: relative;
 }
 
-#resume-main__select-input {
+
+.citizen__textarea,
+.resume__select-input {
   box-sizing: border-box;
   margin-top: 10px;
   width: 100%;
@@ -1012,6 +1041,235 @@ button.edit {
 }
 
 /***Конец наличие детей***/
+
+/**********Гражданство*********/
+.resume-main__select.citizen {
+  top: 0;
+  transform: translateY(0);
+}
+
+.citizen__input-wrap {
+  position: relative;
+}
+
+.citizen__input-container {
+  position: relative;
+  border: 1px solid var(--border-color);
+  margin-top: 10px;
+  height: 58px;
+  justify-content: space-between;
+}
+
+.citizen__input-container.reduced {
+  width: 75%;
+}
+
+.no-match {
+  border: 1px solid var(--bg-red);
+  color: var(--bg-red);
+}
+
+.citizen__input-container.add {
+  display: flex;
+}
+
+.under-input {
+  position: absolute;
+  box-sizing: border-box;
+  height: 58px;
+  font-size: 22px;
+  padding-top: 16px;
+  padding-left: 9px;
+  z-index: 0;
+  display: flex;
+}
+
+.under-input__begin {
+  color: #333;
+}
+
+.under-input__end {
+  color: #bbb;
+}
+
+.citizen__input {
+  flex-basis: 87%;
+  background-color: transparent;
+  z-index: 5;
+  padding-top: 16px;
+  resize: none;
+  color: transparent;
+  caret-color: #333;
+}
+
+.no-match1 {
+  color: var(--bg-red);
+}
+
+.citizen__input-add {
+  position: relative;
+  flex-basis: 58px;
+  height: 58px;
+  border: 1px solid transparent;
+  background-color: var(--bg-yellow);
+}
+
+.citizen__input-add.add {
+  display: block;
+}
+
+.hide-btn {
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  top: 0;
+  right: 0;
+  background-color: rgba(100, 100, 100, 0.3);
+}
+
+.citizen__input-add span {
+  display: block;
+  font-size: 50px;
+  color: #fff;
+  line-height: 40%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+}
+
+.citizen__input-remove {
+  position: absolute;
+  right: 0;
+  top: 14px;
+  height: 30px;
+  border: none;
+}
+
+.citizen__input-remove span:nth-child(1) {
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  font-size: 35px;
+  line-height: 18px;
+  color: var(--bg-red);
+  border: 1px solid var(--bg-red);
+  border-radius: 50%;
+}
+
+.citizen__input-remove span:nth-child(2) {
+  display: inline-block;
+  transform: translateY(-3px);
+  margin-left: 10px;
+  color: var(--bg-red);
+  font-size: 20px;
+  line-height: 20px;
+  border-bottom: 1px dotted var(--bg-red);
+}
+
+.citizen__input-wrap .citizen__textarea {
+  margin-top: 0;
+  border: none;
+}
+
+.citizen__input-arrow {
+  position: absolute;
+  top: 23px;
+  right: 23px;
+  width: 20px;
+  height: 20px;
+  background: url(img/arrow-down.svg) center no-repeat;
+  transition: 0.3s;
+}
+
+.citizen__input-arrow.add {
+  right: 80px;
+}
+
+.citizen__input-arrow.reduced {
+  right: 180px;
+}
+
+.arrow-rotate {
+  transform: rotateZ(180deg);
+}
+
+.citizen__select-ul {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.citizen__select-ul.active {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.citizen__select {
+  border: none;
+}
+
+.citizen__select.active {
+  border: 1px solid var(--border-color);
+}
+
+.citizen__select-item {
+  padding: 5px;
+  padding-left: 40px;
+  position: relative;
+  font-size: 19px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.citizen__select-item:hover {
+  color: #222;
+  background-color: var(--bg-yellow);
+}
+
+.citizen__select-item:before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+}
+
+.citizen__select-item:after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 14px;
+  width: 16px;
+  height: 16px;
+  background: url(img/check-mark-white-20.png) center no-repeat;
+}
+
+.citizen__select-item:hover:before {
+  border: 1px solid #fff;
+}
+
+.citizen__select-item:hover:after {
+  top: 5px;
+  display: block;
+}
+
+.citizen__select-item.selected {
+  color: #222;
+  background-color: var(--bg-yellow);
+}
+
+.citizen__select-item.selected:before {
+  border: 1px solid #fff;
+}
+
+.citizen__select-item.selected:after {
+  display: block;
+  top: 5px;
+}
+
+/*******Конец гражданство*******/
 
 /************Конец селекты для резюме*************/
 
@@ -1343,7 +1601,7 @@ button.edit {
 
 .adress__wrap p {
   margin-top: 10px;
-  font-size: 17px;
+  font-size: 18px;
   color: #999;
   margin-bottom: 10px;
 }
@@ -1674,7 +1932,7 @@ button.edit {
 .experience__wrap-table td {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  *justify-content: start;
   text-align: left;
   padding-bottom: 38px;
 }
@@ -1700,17 +1958,24 @@ button.edit {
 
 .experience__wrap-table td .td-title {
   font-weight: 600;
-  height: 20px;
+  position: relative;
+  height: 30px;
+  line-height: 30px;
 }
 
-.td-title.goup {
-  transform: translateY(-5px);
+@media (max-width: 1120px) {
+  .experience__wrap-table td .td-title {
+    line-height: 15px;
+  }
 }
 
 .td-title .li-remove {
-  font-size: 15px;
+  font-size: 22px;
   font-weight: 600;
   color: var(--bg-red);
+  width: 20px;
+  height: 20px;
+  line-height: 10px;
   border: none;
 }
 
@@ -1725,8 +1990,14 @@ button.edit {
 .experience__wrap-table .td-right .td-title {
   margin-bottom: 8px;
   padding-left: 4px;
-  font-size: 17px;
+  font-size: 18px;
   letter-spacing: 0.2px;
+}
+
+@media (max-width: 610px) {
+  .experience__wrap-table .td-right .td-title {
+    margin-bottom: 22px;
+  }
 }
 
 .experience__wrap-table .td-right .td-text {
@@ -1887,7 +2158,7 @@ button.edit {
   width: 22%;
   padding-right: 5px;
   padding-left: 0;
-  font-size: 17px;
+  font-size: 16px;
   vertical-align: top;
 }
 
@@ -1898,11 +2169,30 @@ button.edit {
   padding-bottom: 20px;
 }
 
+.study__wrap-table .td-left {
+  line-height: 20px;
+  height: 30px;
+  padding-top: 5px;
+}
+
 .study__wrap-table td .td-title {
   font-weight: 600;
   margin-bottom: 12px;
+  line-height: 25px;
+  height: 30px;
 }
 
+.study__wrap-table .td-title .li-remove {
+  width: 20px;
+  height: 20px;
+  line-height: 10px;
+}
+
+.study__wrap-table .td-title .pencil {
+  width: 20px;
+  height: 20px;
+  line-height: 10px;
+}
 
 /****************Добавить образование ***************/
 .study__popup {
@@ -2053,7 +2343,7 @@ button.edit {
   width: 22%;
   padding-right: 5px;
   padding-left: 0;
-  font-size: 17px;
+  font-size: 16px;
   vertical-align: top;
 }
 
@@ -2067,8 +2357,27 @@ button.edit {
 .courses__wrap-table td .td-title {
   font-weight: 600;
   margin-bottom: 12px;
+  line-height: 25px;
+  height: 30px;
 }
 
+.courses__wrap-table .td-left {
+  line-height: 20px;
+  height: 30px;
+  padding-top: 5px;
+}
+
+.courses__wrap-table .td-title .li-remove {
+  width: 20px;
+  height: 20px;
+  line-height: 10px;
+}
+
+.courses__wrap-table .td-title .pencil {
+  width: 20px;
+  height: 20px;
+  line-height: 10px;
+}
 
 /************Добавить повышение квалификации, курсы ***********/
 .courses__popup {
@@ -2219,7 +2528,7 @@ button.edit {
   width: 22%;
   padding-right: 5px;
   padding-left: 0;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   vertical-align: top;
 }
@@ -2233,6 +2542,26 @@ button.edit {
 
 .language__wrap-table td .td-title {
   margin-bottom: 12px;
+  line-height: 25px;
+  height: 30px;
+}
+
+.language__wrap-table .td-left {
+  line-height: 20px;
+  height: 30px;
+  padding-top: 5px;
+}
+
+.language__wrap-table .td-title .li-remove {
+  width: 20px;
+  height: 20px;
+  line-height: 10px;
+}
+
+.language__wrap-table .td-title .pencil {
+  width: 20px;
+  height: 20px;
+  line-height: 10px;
 }
 
 /*****************Добавить язык *****************/
@@ -2383,21 +2712,31 @@ button.edit {
   width: 22%;
   padding-right: 5px;
   padding-left: 0;
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 400;
   vertical-align: top;
 }
 
 .addition__wrap-table td:nth-child(2) {
   width: 78%;
   font-size: 18px;
+  font-weight: 600;
   padding-left: 8px;
   padding-bottom: 20px;
 }
 
 .addition__wrap-table td .td-title {
   margin-bottom: 12px;
+  line-height: 25px;
+  height: 30px;
 }
+
+.addition__wrap-table .td-left {
+  line-height: 20px;
+  height: 30px;
+  padding-top: 5px;
+}
+
 
 /*
 Пока не надо

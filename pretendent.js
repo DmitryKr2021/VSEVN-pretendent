@@ -439,7 +439,7 @@ function close_one(e) {
     if (eX < popupRect.left || eX > popupRect.right ||
       eY < popupRect.top || eY > popupRect.bottom) {
       resumeMainPopup.classList.add('hide-block');
-      closePopup();
+      closePopup(e);
     }
   }
 }
@@ -447,9 +447,9 @@ function close_one(e) {
 popupHide.onclick = closePopup;
 
 function closePopup(e) {
-  if (e.target.closest('div')) {
-    e.target.closest('div').classList.add('hide-block');
-  }
+  /*if (e.target.closest('div')) {
+     e.target.closest('div').classList.add('hide-block');
+  }*/ //на удаление
   resumeMainPopup.classList.add('hide-block');
   resumeMainPopupInput.classList.remove('no-input');
   resumeMainPopupInput.classList.remove('ok');
@@ -490,7 +490,12 @@ function handleClick(e) {
     if (item.getAttribute('data-select') == dataSelect) {
       item.classList.remove('hide-block');
     }
-    item.querySelector('input').value = targSelect.innerText;
+    if (item.querySelector('input')) {
+      item.querySelector('input').value = targSelect.innerText;
+      if (item.querySelector('input').classList.contains('citizen__input')) {
+        item.querySelector('input').value = '';
+      }
+    }
   }
 }
 
@@ -548,7 +553,7 @@ function closeSelect(e) {
 }
 
 function saveSelect(e) {
-  if (targSelectInput.value) {
+  if (targSelectInput && targSelectInput.value) {
     targSelect.innerText = targSelectInput.value;
   }
 }
@@ -657,6 +662,213 @@ function chooseAgeFormat(age) {
 }
 
 /***Конец наличие детей***/
+
+/**********Гражданство********** */
+//const citizenInput = document.querySelector('.citizen__input');
+const citizenInputs = document.querySelectorAll('.citizen__input');
+const citizenInputAdds = document.querySelectorAll('.citizen__input-add');
+const citizenInputContainer = document.querySelector('.citizen__input-container');
+const citizenInputArrow = document.querySelector('.citizen__input-arrow');
+const citizenSelect = document.querySelector('.citizen__select');
+const citizenSelectUls = document.querySelectorAll('.citizen__select-ul');
+const underInputBegin = document.querySelector('.under-input__begin');
+const underInputEnd = document.querySelector('.under-input__end');
+const resumeMainSelectInputs = document.querySelectorAll('.resume-main__select-input');
+const saveCountries = document.querySelector('.save-countries');
+let listCountries = ''; //результат выбора стран
+
+const arrCountries = ['Россия', 'Украина', 'Белоруссия', 'Казахстан', 'Азербайджан', 'Армения', 'Грузия', 'Киргизия', 'Молдавия', 'Таджикистан', 'Туркмения', 'Узбекистан', 'Германия', 'Китай', 'США', 'Австралия', 'Австрия', 'Албания', 'Алжир'];
+
+let selectedCountries = []; //список выбранных стран
+let inputStr = '';
+let outputStr = '';
+let psevdoStr = '';
+let strLength = 0;
+let resMatch;
+
+for (let item of arrCountries) {
+  const newLi = document.createElement('li');
+  newLi.innerText = item;
+  newLi.classList.add('citizen__select-item');
+  citizenSelectUls[0].append(newLi);
+}
+
+for (let item of document.querySelectorAll('.citizen__select-item')) {
+  item.addEventListener('click', selectCountry);
+}
+
+function selectCountry(e) {
+  for (let item of document.querySelectorAll('.citizen__select-item')) {
+    item.classList.remove('selected');
+  }
+  this.classList.add('selected');
+
+  let thisInput = this.closest('.citizen__input-wrap');
+  let itemClosInput = thisInput.querySelector('.citizen__input');
+  thisInput.querySelector('.under-input__end').innerText = '';
+  thisInput.querySelector('.under-input__begin').innerText = this.innerText;
+  itemClosInput.setAttribute('placeholder', '');
+  itemClosInput.value = '';
+  thisInput.querySelector('.hide-btn').classList.add('hide-block');
+  //открыть кнопку '+'
+  itemClosInput.addEventListener('click', showList);
+  citizenInputArrow.addEventListener('click', showList);
+}
+
+function showList(e) {
+  let targ = e.target.closest('.resume-main__select-input');
+  targ.querySelector('.citizen__input-arrow').classList.toggle('arrow-rotate');
+  targ.querySelector('.citizen__select').classList.toggle('active');
+  targ.querySelector('.citizen__select-ul').classList.toggle('active');
+}
+
+//Распознавание ввода и вывод подсказки
+
+const regexp = /^[а-яА-ЯёЁ]+$/;
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function selectItem() {
+  for (let item of document.querySelectorAll('.citizen__select-item')) {
+    if (item.innerText == resMatch) {
+      item.classList.add('selected');
+      item.closest('.citizen__input-wrap').querySelector('.hide-btn').classList.add('hide-block');
+      //открыть кнопку '+'
+    }
+  }
+}
+
+for (let item of citizenInputs) {
+  item.addEventListener('click', showList);
+  item.addEventListener('input', inputChar);
+}
+
+function inputChar(e) {
+  //ввод символа
+  if (regexp.test(this.value.substr(this.value.length - 1, 1)) || this.value.substr(this.value.length - 1, 1) == '') {
+    if (strLength > this.value.length) {
+      //нажата backspase - удаление символа
+      strLength--;
+      inputStr = inputStr.slice(0, inputStr.length - 1);
+      psevdoStr = psevdoStr.slice(0, psevdoStr.length - 1);
+      if (psevdoStr.length == 0) {
+        underInputEnd.innerText = '';
+        e.target.setAttribute('placeholder', '—');
+      }
+      for (let item of document.querySelectorAll('.citizen__select-item')) {
+        item.classList.remove('selected');
+      } //отменить выбор селекта
+    } else {
+
+      strLength = this.value.length;
+      inputStr += this.value.substr(this.value.length - 1, 1);
+      psevdoStr = inputStr;
+      if (resMatch && strLength == resMatch.length) {
+        selectItem();
+      }
+      window.addEventListener('keydown', function (e) {
+        if (e.key == 'Enter') {
+          inputStr = resMatch;
+          psevdoStr = resMatch;
+          strLength = resMatch.length;
+          selectItem();
+        }
+      });
+    }
+  }
+
+  inputStr = inputStr.toLowerCase();
+  inputStr = capitalizeFirstLetter(inputStr);
+  resMatch = arrCountries.find(elem => elem.indexOf(inputStr) !== -1 && !selectedCountries.includes(elem));
+  if (!resMatch) { //нет совпадения со страной из списка
+    let thisInput = this.closest('.citizen__input-wrap');
+    thisInput.querySelector('.citizen__input-container').classList.add('no-match');
+    thisInput.querySelector('.under-input__begin').classList.add('no-match1');
+    thisInput.querySelector('.under-input__end').innerText = '';
+    thisInput.querySelector('.under-input__begin').innerText = inputStr;
+    this.value = psevdoStr;
+  } else { //нашлась страна
+    let thisInput = this.closest('.citizen__input-wrap');
+    thisInput.querySelector('.citizen__input-container').classList.remove('no-match');
+    thisInput.querySelector('.under-input__begin').classList.remove('no-match1');
+    thisInput.querySelector('.under-input__begin').innerText = inputStr;
+    e.target.value = '';
+    if (psevdoStr.length !== 0) {
+      e.target.setAttribute('placeholder', '');
+      let strEnd = resMatch.slice(inputStr.length);
+      thisInput.querySelector('.under-input__end').innerText = strEnd;
+    }
+    this.value = psevdoStr;
+  }
+}
+
+//Добавить поле выбора
+for (let item of citizenInputAdds) {
+  item.addEventListener('click', addSelectCountry);
+}
+
+//клонировать input
+function addSelectCountry(e) {
+  strLength = 0;
+  inputStr = '';
+  //спрятать нажатую кнопку '+'
+  this.classList.add('hide-block');
+  this.classList.remove('add');
+
+  let targClos = e.target.closest('.citizen__input-wrap');
+  selectedCountries.push(
+    targClos.querySelector('.under-input__begin').innerText
+  ); //записали выбранную страну в массив
+
+  targClos.querySelector('.citizen__select').classList.add('hide-block');
+  const addedInput = document.querySelectorAll('.citizen__input-wrap')[0].cloneNode(true);
+  targClos.querySelector('.citizen__input-arrow').classList.add('hide-block'); //спрятать стрелку
+  targClos.after(addedInput);
+
+  addedInput.querySelector('.under-input__begin').innerText = '';
+  addedInput.querySelector('.citizen__input').value = '';
+  addedInput.querySelector('.citizen__input').setAttribute('placeholder', '—');
+  addedInput.querySelector('.citizen__input-remove').classList.remove('hide-block');
+  addedInput.querySelector('.citizen__input-container').classList.add('reduced');
+  addedInput.querySelector('.citizen__input-arrow').classList.remove('arrow-rotate');
+  addedInput.querySelector('.citizen__input-arrow').classList.add('reduced');
+  addedInput.querySelector('.citizen__input-arrow').classList.remove('hide-block');
+  addedInput.querySelector('.citizen__select').classList.remove('hide-block');
+  addedInput.querySelector('.citizen__select').classList.remove('active');
+  addedInput.querySelector('.citizen__select-ul').classList.remove('active');
+  addedInput.querySelector('.citizen__input-add').classList.add('add');
+  addedInput.querySelector('.hide-btn').classList.remove('hide-block');
+
+  for (let item of addedInput.querySelectorAll('.citizen__select-item')) {
+    if (selectedCountries.includes(item.innerText)) {
+      item.remove();
+    }
+  } //удалить из списка стран уже выбранную
+
+  addedInput.querySelector('.citizen__input').addEventListener('click', showList);
+  addedInput.querySelector('.citizen__input-add').addEventListener('click', addSelectCountry);
+  addedInput.querySelector('.citizen__input').addEventListener('input', inputChar);
+  addedInput.querySelector('.citizen__input-remove').addEventListener('click', function (e) {
+    this.closest('.citizen__input-wrap').remove();
+  }); //удалить строку
+  for (let item of addedInput.querySelectorAll('.citizen__select-item')) {
+    item.addEventListener('click', selectCountry);
+  }
+}
+
+//Сохранить выбранное
+const citizenList = document.querySelector('.citizen-list');
+saveCountries.addEventListener('click', function (e) {
+  for (let item of document.querySelectorAll('.under-input__begin')) {
+    listCountries += item.innerText + ', ';
+  }
+  citizenList.innerText = listCountries.slice(0, listCountries.length - 2);
+  listCountries = '';
+});
+/*******Конец гражданство******* */
+
 /************Конец селекты для резюме*************/
 
 
@@ -1538,3 +1750,131 @@ function closeEditLanguagePopup() {
   editLanguagePopup.classList.add('hide-block');
 }
 /**************Конец редактировать язык*****************/
+
+
+
+/*********************Ввод даты**********************/
+const regDate = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+const uncorrectDate = document.querySelector('.uncorrect-date');
+const uncorrectYear = document.querySelector('.uncorrect-year');
+let inputYear;
+
+/**********Маска даты***********/
+let inputDate = document.querySelectorAll('#mydate');
+inputDate[0].onfocus = () => {
+  uncorrectDate.classList.add('hide-block');
+  uncorrectYear.classList.add('hide-block');
+};
+
+Array.prototype.forEach.call(inputDate, function (input) {
+  new InputMask({
+    selector: input, // в качестве селектора может быть элемент, или css селектор('#input', '.input', 'input'). 
+    //Если селектор - тег или класс - будет получен только первый элемент
+    layout: input.dataset.mask
+  });
+});
+
+function InputMask(options) {
+  this.el = this.getElement(options.selector);
+  if (!this.el) {
+    return console.log('Что-то не так с селектором');
+  }
+  this.layout = options.layout || '__.__.____';
+  this.maskreg = this.getRegexp();
+  this.setListeners();
+}
+
+InputMask.prototype.getRegexp = function () {
+  var str = this.layout.replace(/_/g, '\\d');
+  str = str.replace(/\s/g, '\\s');
+  return str;
+};
+
+InputMask.prototype.mask = function (e) {
+  var _this = e.target,
+    matrix = this.layout,
+    i = 0,
+    def = matrix.replace(/\D/g, ""),
+    val = _this.value.replace(/\D/g, "");
+
+  if (def.length >= val.length) {
+    val = def;
+  }
+
+  _this.value = matrix.replace(/./g, function (a) {
+    return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a;
+  });
+
+  if (e.type == "blur") {
+    var regexp = new RegExp(this.maskreg);
+    if (!regexp.test(_this.value)) {
+      _this.value = "";
+    }
+  } else {
+    this.setCursorPosition(_this.value.length, _this);
+  }
+};
+
+InputMask.prototype.setCursorPosition = function (pos, elem) {
+  elem.focus();
+  if (elem.setSelectionRange) {
+    elem.setSelectionRange(pos, pos);
+  } else if (elem.createTextRange) {
+    var range = elem.createTextRange();
+    range.collapse(true);
+    range.moveEnd("character", pos);
+    range.moveStart("character", pos);
+    range.select();
+  }
+};
+
+InputMask.prototype.setListeners = function () {
+  this.el.addEventListener("input", this.mask.bind(this), false);
+  this.el.addEventListener("focus", this.mask.bind(this), false);
+  this.el.addEventListener("blur", this.mask.bind(this), false);
+};
+
+InputMask.prototype.getElement = function (selector) {
+  if (selector === undefined) {
+    return false;
+  }
+  if (this.isElement(selector)) {
+    return selector;
+  }
+  if (typeof selector == 'string') {
+    var el = document.querySelector(selector);
+    if (this.isElement(el)) {
+      return el;
+    }
+  }
+  return false;
+};
+
+InputMask.prototype.isElement = function (element) {
+  return element instanceof Element || element instanceof HTMLDocument;
+};
+
+//Проверка даты
+const dateApply = document.querySelector('.date-apply');
+
+dateApply.addEventListener('click', function () {
+  if (regDate.test(inputDate.value)) {
+    uncorrectDate.classList.add('hide-block');
+  }
+});
+
+inputDate[0].addEventListener('blur', function () {
+  inputYear = inputDate[0].value.substr(6, 4);
+
+  if (inputYear > new Date().getFullYear()) {
+    uncorrectYear.classList.remove('hide-block');
+    uncorrectDate.classList.remove('hide-block');
+    inputDate[0].value = '';
+  }
+
+  if (!regDate.test(this.value)) {
+    inputDate[0].value = '';
+  }
+});
+/******Конец маска даты*****/
+/****************Конец ввод даты*********************/
